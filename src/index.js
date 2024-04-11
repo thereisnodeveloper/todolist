@@ -18,6 +18,7 @@ class Project{
 }
 
 class ToDoItem extends Project{
+    constructor(name){}
 }
 // Object.assign(ToDoItem, Project)
 
