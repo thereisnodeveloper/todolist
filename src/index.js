@@ -1,3 +1,5 @@
+import display from "./displayManager.js"
+
 class ToDoObj{
     // constructor(){
     //     // this.name = name
@@ -32,6 +34,7 @@ class ToDoCard extends ToDoProject{
         super()
         this.name = name || "default"
         this.cardDepthLevel = 0 
+        // Printer.print(this)
     }
     static {
         this.maxCardDepthLevel = 0
@@ -43,7 +46,7 @@ class ToDoCard extends ToDoProject{
         ] = array
         return
     }
-
+    
     listEditableProp = [
         this.name, this.description, this.dueDate, this.priority, this.isItComplete, this.checkList
     ]
@@ -65,32 +68,91 @@ class ToDoCard extends ToDoProject{
 }
 
 
+class DisplayPrinter{ //prints configured properties of an object
+    static{ //configure printing options
+        this.printAll = true
+    }
+    static dispPrint(obj){
+        const toPrint = [
+            obj.name,
+            obj.description,
+            obj.dueDate,
+            obj.priority,
+            obj.isItComplete,
+            obj.checkList,
+            obj.cardDepthLevel,
+            // obj.subItemArray
+        ] 
+
+        const entries = Object.entries(obj)
+        entries.forEach(entry =>{
+            if(this.printAll === true){
+            // console.log('print');    
+                if(!this.checkIfShouldPrint(entry,toPrint)){
+                    return
+                }
+            }
+            const content = `${entry[0]} : ${entry[1]}`
+            display.addToDisplay(content)
+            display.addToDisplay("  ")            
+        })
+    }
+    static checkIfShouldPrint(entry, toPrintArray){
+        if(toPrintArray.includes(entry[1])){return true}
+        else { return false}
+        }
+    // static printSubItemRecurse(array){
+    //     array.forEach(item=>{
+    //         if(item[0]){
+    //             console.log(item);
+    //             this.printSubItemRecurse(item)
+    //         }
+    //     })
+        
+    // }
+    static printSubItemRecurse(obj){
+        console.log(obj.subItemArray);
+        if(!obj.subItemArray){
+            console.log('no subArray');
+            return
+        }
+        obj.subItemArray.forEach(item=>{
+            if(item.subItemArray[0]){
+                console.log(`
+                printing recursively: ${item.name}
+                depth ${item.cardDepthLevel}
+                `);
+                addDepthSeparator(item.cardDepthLevel)
+                this.dispPrint(item)
+                this.printSubItemRecurse(item)
+            }
+        })
+        function addDepthSeparator(depth){
+            let content = "_"
+            for(let i=0; i < depth + 1 ;i++){
+                content.concat("")
+            }
+            display.addToDisplay(content)
+        }   
+    }
+    
+}
 
 
 const card1 = new ToDoCard("card1D0")
 // ToDoCard.maxCardDepthLevel
-card1.makeSubCard("card1D1").makeSubCard("card1D2") //depth max 2, current 2
+const cardWithDepth =  card1.makeSubCard("card1D1").makeSubCard("card1D2") //depth max 2, current 2
+// console.log(card1);
+
+
 const card3 = new ToDoCard("card3D0")
 card3.makeSubCard("card3D1") //depth max 2, current 1
 card3.makeSubCard("card3D1") //depth max 2, current 1
 card1.makeSubCard("card1D1").makeSubCard("card1D2").makeSubCard("card1D3") //depth max 2, current 2
-
-
-// card1.makeSubCard()
-
-// card1.makeSubCard().makeSubCard()
-
-// console.log('card1.listEditableProp:', card1.listEditableProp)
-// card1.listEditableProp = ['name', 'desc' ]
-// console.log('card1.listEditableProp:', card1.listEditableProp)
+DisplayPrinter.printSubItemRecurse(card1)
+// console.log('card1.subItemArray:', card1.subItemArray)
 
 //Mixin for shared functionality between projects and to-do items
 // Object.assign(ToDoItem, Project)
 //Common methods
 //delete, add
-
-function addToDisplay(content){
-    const elem = document.createElement("div")
-    elem.textContent = content
-    document.body.appendChild(elem)
-}
