@@ -7,12 +7,8 @@ class ToDoObj{
     static makeSubItemArray(){
         return []
     }
-    addSubItem(subItem){
-        this.subItemArray.push(subItem)
-    } //TODO:common method
     removeSubItem(){}
     removeAllSubItems(){
-
     }   
 }
 
@@ -25,19 +21,24 @@ class ToDoProject extends ToDoObj{
         super()
         ToDoProject.numOfProjects++
         this.subItemArray = ToDoProject.makeSubItemArray()
-    }    
+    }
 }
 
 const proj1 = new ToDoProject('test')
-proj1.addSubItem("ToDoProj1")
 console.log('proj1.subItemArray:', proj1.subItemArray);
 
 class ToDoCard extends ToDoProject{
-    constructor(){
+    constructor(name){
         super()
-        this.cardDepthLevel = 0   
+        this.name = name || "default"
+        this.cardDepthLevel = 0 
     }
-    set listEditableProp(array){
+    static {
+        this.maxCardDepthLevel = 0
+    }
+    
+    set listEditableProp(array){ //FIXME: read setter and gettter article, it may not be necessary to keep a separate array
+        //also maybe I can just do listEditableProp = array
         [this.name, this.description, this.dueDate, this.priority, this.isItComplete, this.checkList
         ] = array
         return
@@ -47,22 +48,38 @@ class ToDoCard extends ToDoProject{
         this.name, this.description, this.dueDate, this.priority, this.isItComplete, this.checkList
     ]
 
-    // get printEditableProp(){
-    //     return this.listEditableProp
-    // }
     checkIfEditable(){}
-    makeSubCardIterate(){
-        const subCard = new ToDoCard()
-        this.cardDepthLevel++
+    makeSubCard(name){
+        const subCard = new ToDoCard(name)
+        subCard.cardDepthLevel = this.cardDepthLevel
+        subCard.cardDepthLevel++
+        // if(this.subItemArray.length === 0) {subCard.cardDepthLevel++};
+        if(ToDoCard.maxCardDepthLevel < subCard.cardDepthLevel){
+            ToDoCard.maxCardDepthLevel = subCard.cardDepthLevel
+        }
         this.subItemArray.push(subCard)
+
+
+        return subCard
     }
 }
 
 
 
-const card1 = new ToDoCard("card1")
-const card2 = new ToDoCard("card2")
-console.log(card1.subItemArray);
+
+const card1 = new ToDoCard("card1D0")
+// ToDoCard.maxCardDepthLevel
+card1.makeSubCard("card1D1").makeSubCard("card1D2") //depth max 2, current 2
+const card3 = new ToDoCard("card3D0")
+card3.makeSubCard("card3D1") //depth max 2, current 1
+card3.makeSubCard("card3D1") //depth max 2, current 1
+card1.makeSubCard("card1D1").makeSubCard("card1D2").makeSubCard("card1D3") //depth max 2, current 2
+
+
+// card1.makeSubCard()
+
+// card1.makeSubCard().makeSubCard()
+
 // console.log('card1.listEditableProp:', card1.listEditableProp)
 // card1.listEditableProp = ['name', 'desc' ]
 // console.log('card1.listEditableProp:', card1.listEditableProp)
