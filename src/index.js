@@ -1,4 +1,5 @@
 import display from "./displayManager.js"
+import "./style.css"
 
 class ToDoObj{
     // constructor(){
@@ -72,7 +73,7 @@ class DisplayPrinter{ //prints configured properties of an object
     static{ //configure printing options
         this.printAll = true
     }
-    static dispPrint(obj){
+    static printObj(obj){
         const toPrint = [
             obj.name,
             obj.description,
@@ -85,31 +86,31 @@ class DisplayPrinter{ //prints configured properties of an object
         ] 
 
         const entries = Object.entries(obj)
-        entries.forEach(entry =>{
+        const objElem = document.createElement("div")
+
+        entries.forEach(entry =>{ 
             if(this.printAll === true){
-            // console.log('print');    
                 if(!this.checkIfShouldPrint(entry,toPrint)){
                     return
                 }
             }
             const content = `${entry[0]} : ${entry[1]}`
-            display.addToDisplay(content)
-            display.addToDisplay("  ")            
+
+            //TODO: organize this code separately
+        
+            display.addToDisplay(content, objElem)
+            // display.addToDisplay(objElem)
+            // display.addToDisplay("  ")            
         })
+        document.querySelector(".doc-content").appendChild(objElem)
+        objElem.classList.add("card")
+        return objElem
     }
     static checkIfShouldPrint(entry, toPrintArray){
         if(toPrintArray.includes(entry[1])){return true}
         else { return false}
         }
-    // static printSubItemRecurse(array){
-    //     array.forEach(item=>{
-    //         if(item[0]){
-    //             console.log(item);
-    //             this.printSubItemRecurse(item)
-    //         }
-    //     })
-        
-    // }
+
     static printSubItemRecurse(obj){
         console.log(obj.subItemArray);
         if(!obj.subItemArray){
@@ -122,17 +123,19 @@ class DisplayPrinter{ //prints configured properties of an object
                 printing recursively: ${item.name}
                 depth ${item.cardDepthLevel}
                 `);
-                addDepthSeparator(item.cardDepthLevel)
-                this.dispPrint(item)
-                this.printSubItemRecurse(item)
+                const obj  = this.printObj(item)
+                addDepthSeparator(item.cardDepthLevel,obj)
+
+                this.printSubItemRecurse(item) //recursion here
             }
         })
-        function addDepthSeparator(depth){
+
+        function addDepthSeparator(depth,target){
             let content = "_"
             for(let i=0; i < depth + 1 ;i++){
-                content.concat("")
+                content.concat("-")
             }
-            display.addToDisplay(content)
+            display.addToDisplay(content,target)
         }   
     }
     
