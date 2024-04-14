@@ -35,6 +35,7 @@ class ToDoCard extends ToDoProject{
         this.name = name || "default"
         this.cardDepthLevel = 0 
         // Printer.print(this)
+        this.father
     }
     static {
         this.maxCardDepthLevel = 0
@@ -54,6 +55,8 @@ class ToDoCard extends ToDoProject{
     checkIfEditable(){}
     makeSubCard(name){
         const subCard = new ToDoCard(name)
+        subCard.father = this
+        console.log(subCard);
         subCard.cardDepthLevel = this.cardDepthLevel
         subCard.cardDepthLevel++
         // if(this.subItemArray.length === 0) {subCard.cardDepthLevel++};
@@ -130,14 +133,17 @@ class DisplayPrinter{ //prints configured properties of an object
         function addDepthSeparator(depth){
             let content = "_"
             for(let i=0; i < depth + 1 ;i++){
-                content.concat("")
-            }
+               content = content.concat(`
+               \n
+               \n
+               __|
+               `)
+                }
             display.addToDisplay(content)
         }   
     }
     
 }
-
 
 const card1 = new ToDoCard("card1D0")
 // ToDoCard.maxCardDepthLevel
