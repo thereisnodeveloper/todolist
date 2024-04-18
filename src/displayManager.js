@@ -6,7 +6,7 @@ function addToDisplay(content, target=docContent){
     const elem = document.createElement("div")
     elem.textContent = content
     target.appendChild(elem)
-    return target
+    return elem
 }
 
 // function addToTarget(content, target=docContent){

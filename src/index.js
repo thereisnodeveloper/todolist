@@ -36,6 +36,7 @@ class ToDoCard extends ToDoProject{
         this.name = name || "default"
         this.cardDepthLevel = 0 
         // Printer.print(this)
+        this.class
     }
     static {
         this.maxCardDepthLevel = 0
@@ -97,12 +98,15 @@ class DisplayPrinter{ //prints configured properties of an object
             const content = `${entry[0]} : ${entry[1]}`
 
             //TODO: organize this code separately
-        
-            display.addToDisplay(content, objElem)
+    
+            const elem = display.addToDisplay(content, objElem)
             // display.addToDisplay(objElem)
             // display.addToDisplay("  ")            
+
         })
         document.querySelector(".doc-content").appendChild(objElem)
+        objElem.classList.add(this.name)
+
         objElem.classList.add("card")
         return objElem
     }
@@ -119,14 +123,11 @@ class DisplayPrinter{ //prints configured properties of an object
         }
         obj.subItemArray.forEach(item=>{
             if(item.subItemArray[0]){
-                console.log(`
-                printing recursively: ${item.name}
-                depth ${item.cardDepthLevel}
-                `);
                 const obj  = this.printObj(item)
                 addDepthSeparator(item.cardDepthLevel,obj)
 
                 this.printSubItemRecurse(item) //recursion here
+                
             }
         })
 
@@ -144,15 +145,17 @@ class DisplayPrinter{ //prints configured properties of an object
 
 const card1 = new ToDoCard("card1D0")
 // ToDoCard.maxCardDepthLevel
-const cardWithDepth =  card1.makeSubCard("card1D1").makeSubCard("card1D2") //depth max 2, current 2
 // console.log(card1);
 
 
 const card3 = new ToDoCard("card3D0")
-card3.makeSubCard("card3D1") //depth max 2, current 1
-card3.makeSubCard("card3D1") //depth max 2, current 1
+// card3.makeSubCard("card3D1") //depth max 2, current 1
+// card3.makeSubCard("card3D1") //depth max 2, current 1
 card1.makeSubCard("card1D1").makeSubCard("card1D2").makeSubCard("card1D3") //depth max 2, current 2
+
 DisplayPrinter.printSubItemRecurse(card1)
+
+
 // console.log('card1.subItemArray:', card1.subItemArray)
 
 //Mixin for shared functionality between projects and to-do items
