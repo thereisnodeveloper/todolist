@@ -1,6 +1,8 @@
 import display from "./displayManager.js"
 import "./style.css"
 
+const testElem = document.createElement("div")
+
 class ToDoObj{
     // constructor(){
     //     // this.name = name
@@ -28,7 +30,6 @@ class ToDoProject extends ToDoObj{
 }
 
 const proj1 = new ToDoProject('test')
-console.log('proj1.subItemArray:', proj1.subItemArray);
 
 class ToDoCard extends ToDoProject{
     constructor(name){
@@ -83,7 +84,7 @@ class DisplayPrinter{ //prints configured properties of an object
     //     obj.elemRef = 
     // }
 
-    static printObj(obj){
+    static printObjContents(obj){
         const toPrint = [
             obj.name,
             obj.description,
@@ -116,13 +117,10 @@ class DisplayPrinter{ //prints configured properties of an object
             // display.addToDisplay("  ")            
 
         })
-        if(obj.parent.elemRef){obj.parent.elemRef.appendChild(objElem)}
-        
-        document.querySelector(".doc-content").appendChild(objElem)
         objElem.classList.add(obj.name)
 
         objElem.classList.add("card")
-        return objElem
+        return {obj,objElem}
     }
     static checkIfShouldPrint(entry, toPrintArray){
         if(toPrintArray.includes(entry[1])){return true}
@@ -134,25 +132,27 @@ class DisplayPrinter{ //prints configured properties of an object
             console.log('no subArray');
             return
         }
-        console.log(obj.subItemArray);
+        const container = document.querySelector(".doc-content")
+        
         obj.subItemArray.forEach(item=>{
-            if(item.subItemArray[0]){
-                console.log(item);
-                const obj  = this.printObj(item) //this = DisplayPrinter
-                addDepthSeparator(item.cardDepthLevel,obj)
-
-                this.printSubItemRecurse(item) //recursion here
+                const {objElem, obj: targetObj}  = this.printObjContents(item) //this = DisplayPrinter
+                const parentElem = targetObj.parent.elemRef ? targetObj.parent.elemRef  : container
                 
-            }
+                parentElem.appendChild(objElem)
+                this.printSubItemRecurse(item) //recursion here
+            
         })
 
         function addDepthSeparator(depth,target){
             let content = "_"
-            for(let i=0; i < depth + 1 ;i++){
-                content.concat("-")
-            }
+            // content.concat("_".repeat(depth))
+            content = content.repeat(depth * 2)
+            // for(let i=0; i < depth + 1 ;i++){
+            //     content.concat("-")
+            // }
             display.addToDisplay(content,target)
         }   
+        
     }
     
 }
@@ -167,10 +167,11 @@ const card3 = new ToDoCard("card3D0")
 // card3.makeSubCard("card3D1") //depth max 2, current 1
 // card3.makeSubCard("card3D1") //depth max 2, current 1
 
-const card1D01 = card1.makeSubCard("card1D1")
-const card1D02 = card1D01.makeSubCard("card1D2")
-const card1D03 = card1D02.makeSubCard("card1D3") //depth max 2, current 2
-
+const card1D01S00 = card1.makeSubCard("card1D1")
+const card1D02S00 = card1D01S00.makeSubCard("card1D02")
+const card1D03S00 = card1D02S00.makeSubCard("card1D03") //depth max 2, current 2
+const card1D02S01 = card1D02S00.makeSubCard("card1D03-1")
+const card1D04S00 = card1D03S00.makeSubCard("card1D04")
 
 DisplayPrinter.printSubItemRecurse(card1)
 
