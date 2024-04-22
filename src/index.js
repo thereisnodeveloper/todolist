@@ -16,6 +16,8 @@ class ToDoObj{
     }   
 }
 
+
+
 class ToDoProject extends ToDoObj{
     static{
         this.numOfProjects = 0 //this here refers to the class, not instance
@@ -29,6 +31,8 @@ class ToDoProject extends ToDoObj{
 }
 
 const proj1 = new ToDoProject('test')
+console.log(proj1);
+
 
 class ToDoCard extends ToDoProject{
     constructor(name){
@@ -74,14 +78,33 @@ class ToDoCard extends ToDoProject{
 }
 
 
+class ProjectManager{
+
+static createProject(name = "Project"){
+display.addToDisplay(name, document.querySelector("nav"),"li")
+new ToDoProject(name)
+
+}
+
+switchCurrentProject(){
+    //if click on proj, switch to it
+    //if create new proj, switch to it
+}
+
+}
+
+ProjectManager.createProject()
+
+
+
+
+
+
 class DisplayPrinter{ //prints configured properties of an object
     static{ //configure printing options
         this.printAll = true
     }
 
-    // static addElemRef(obj){
-    //     obj.elemRef = 
-    // }
 
     static printObjContents(obj){
         const toPrint = [
@@ -92,8 +115,6 @@ class DisplayPrinter{ //prints configured properties of an object
             obj.isItComplete,
             obj.checkList,
             obj.cardDepthLevel,
-            // obj.subItemArray,
-            // obj.parent,
         ] 
         //TODO: consider printing everything without exceptions
 
@@ -141,7 +162,6 @@ class DisplayPrinter{ //prints configured properties of an object
                 
                 parentElem.appendChild(objElem)
                 this.printSubItemRecurse(item) //recursion here
-            
         })
 
         function addDepthSeparator(depth,target){
@@ -180,9 +200,6 @@ const card1D02S01 = card1D02S00.makeSubCard("card1D03-1")
 const card1D04S00 = card1D03S00.makeSubCard("card1D04")
 
 DisplayPrinter.printSubItemRecurse(card1)
-
-
-// console.log('card1.subItemArray:', card1.subItemArray)
 
 //Mixin for shared functionality between projects and to-do items
 // Object.assign(ToDoItem, Project)

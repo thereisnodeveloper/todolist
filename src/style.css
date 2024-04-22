@@ -1,5 +1,23 @@
 :root{   font-family:-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif; }
 
+.content-wrapper{
+    display: flex;
+}
+
+li{
+    list-style: none;
+}
+nav{
+    padding: 20px;
+    border:white 3px solid;
+        
+}
+nav li{
+    border: green 1px solid;
+    padding: 5px;
+    padding: 0 20px 0 20px;
+    margin-bottom: 5px;
+}
 
 .doc-content{
     border: 3px blue solid;
