@@ -1,4 +1,4 @@
-export default {addToDisplay}
+export default {addToDisplay, addClass}
 
 const docContent=document.querySelector(".doc-content")
 
@@ -7,6 +7,11 @@ function addToDisplay(content, target=docContent){
     elem.textContent = content
     target.appendChild(elem)
     return elem
+}
+
+function addClass(target, content){
+    target.classList.add(content)
+    return target
 }
 
 // function addToTarget(content, target=docContent){

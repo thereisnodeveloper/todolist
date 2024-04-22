@@ -10,9 +10,18 @@
 }
 
 .card{
-    background-color: #63ff85;
+    /* background-color: #63ff85; */
+    background-color:hsl(156, 100%, 52%) ;
     padding: 10px;
     border: 2px blue solid;
     position:relative;
     text-wrap: nowrap;
 }
+
+.card .cardDepthLevel{
+    margin-bottom: 20px;
+}
+
+/* .card:nth-child(odd){
+    background-color: #fff;
+} */

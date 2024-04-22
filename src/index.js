@@ -1,7 +1,6 @@
 import display from "./displayManager.js"
 import "./style.css"
 
-const testElem = document.createElement("div")
 
 class ToDoObj{
     // constructor(){
@@ -94,7 +93,7 @@ class DisplayPrinter{ //prints configured properties of an object
             obj.checkList,
             obj.cardDepthLevel,
             // obj.subItemArray,
-            obj.parent,
+            // obj.parent,
         ] 
         //TODO: consider printing everything without exceptions
 
@@ -109,10 +108,12 @@ class DisplayPrinter{ //prints configured properties of an object
                 }
             }
             const content = `${entry[0]} : ${entry[1]}`
+            
 
             //TODO: organize this code separately
     
             const elem = display.addToDisplay(content, objElem)
+            display.addClass(elem, entry[0])
             // display.addToDisplay(objElem)
             // display.addToDisplay("  ")            
 
@@ -152,6 +153,11 @@ class DisplayPrinter{ //prints configured properties of an object
             // }
             display.addToDisplay(content,target)
         }   
+
+        (function alternateColorByDepth(){
+            if(!obj.cardDepthLevel)return
+            if(obj.cardDepthLevel%2 ===0){obj.elemRef.style.backgroundColor = "red"}
+        })()
         
     }
     
