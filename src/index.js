@@ -37,6 +37,7 @@ class ToDoCard extends ToDoProject{
         this.cardDepthLevel = 0 
         // Printer.print(this)
         this.class
+        // this.parent
     }
     static {
         this.maxCardDepthLevel = 0
@@ -56,6 +57,9 @@ class ToDoCard extends ToDoProject{
     checkIfEditable(){}
     makeSubCard(name){
         const subCard = new ToDoCard(name)
+        const objElem = document.createElement("div")
+        subCard.elemRef = objElem
+        subCard.parent = this
         subCard.cardDepthLevel = this.cardDepthLevel
         subCard.cardDepthLevel++
         // if(this.subItemArray.length === 0) {subCard.cardDepthLevel++};
@@ -74,6 +78,11 @@ class DisplayPrinter{ //prints configured properties of an object
     static{ //configure printing options
         this.printAll = true
     }
+
+    // static addElemRef(obj){
+    //     obj.elemRef = 
+    // }
+
     static printObj(obj){
         const toPrint = [
             obj.name,
@@ -83,11 +92,14 @@ class DisplayPrinter{ //prints configured properties of an object
             obj.isItComplete,
             obj.checkList,
             obj.cardDepthLevel,
-            // obj.subItemArray
+            // obj.subItemArray,
+            obj.parent,
         ] 
+        //TODO: consider printing everything without exceptions
 
+        const objElem = obj.elemRef        
         const entries = Object.entries(obj)
-        const objElem = document.createElement("div")
+
 
         entries.forEach(entry =>{ 
             if(this.printAll === true){
@@ -104,8 +116,10 @@ class DisplayPrinter{ //prints configured properties of an object
             // display.addToDisplay("  ")            
 
         })
+        if(obj.parent.elemRef){obj.parent.elemRef.appendChild(objElem)}
+        
         document.querySelector(".doc-content").appendChild(objElem)
-        objElem.classList.add(this.name)
+        objElem.classList.add(obj.name)
 
         objElem.classList.add("card")
         return objElem
@@ -116,14 +130,15 @@ class DisplayPrinter{ //prints configured properties of an object
         }
 
     static printSubItemRecurse(obj){
-        console.log(obj.subItemArray);
         if(!obj.subItemArray){
             console.log('no subArray');
             return
         }
+        console.log(obj.subItemArray);
         obj.subItemArray.forEach(item=>{
             if(item.subItemArray[0]){
-                const obj  = this.printObj(item)
+                console.log(item);
+                const obj  = this.printObj(item) //this = DisplayPrinter
                 addDepthSeparator(item.cardDepthLevel,obj)
 
                 this.printSubItemRecurse(item) //recursion here
@@ -151,7 +166,11 @@ const card1 = new ToDoCard("card1D0")
 const card3 = new ToDoCard("card3D0")
 // card3.makeSubCard("card3D1") //depth max 2, current 1
 // card3.makeSubCard("card3D1") //depth max 2, current 1
-card1.makeSubCard("card1D1").makeSubCard("card1D2").makeSubCard("card1D3") //depth max 2, current 2
+
+const card1D01 = card1.makeSubCard("card1D1")
+const card1D02 = card1D01.makeSubCard("card1D2")
+const card1D03 = card1D02.makeSubCard("card1D3") //depth max 2, current 2
+
 
 DisplayPrinter.printSubItemRecurse(card1)
 
