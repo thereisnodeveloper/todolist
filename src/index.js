@@ -47,16 +47,34 @@ class ToDoCard extends ToDoProject{
         this.maxCardDepthLevel = 0
     }
     
-    set listEditableProp(array){ //FIXME: read setter and gettter article, it may not be necessary to keep a separate array
-        //also maybe I can just do listEditableProp = array
-        [this.name, this.description, this.dueDate, this.priority, this.isItComplete, this.checkList
-        ] = array
-        return
+    static editableProps = ["name", "description", "dueDate", "priority", "isItComplete", "checkList"]
+
+    // static editableProps = [this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
+    // ]
+    set setCardProperties(propObj){
+        //check argument object's properties against list
+        Object.entries(propObj).forEach(([key,value]) =>{
+            if(ToDoCard.editableProps.includes(key)){
+                //set both key and value
+                this[key] = value;
+
+            }
+        })
     }
     
-    listEditableProp = [
-        this.name, this.description, this.dueDate, this.priority, this.isItComplete, this.checkList
-    ]
+     //FIXME: read setter and gettter article, it may not be necessary to keep a separate array
+        //also maybe I can just do listEditableProp = array
+
+    // set cardProperties(propObj){
+    //     array.forEach(prop){
+    //         this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
+    //     }
+    // }
+    
+    
+    // listEditableProp = [
+    //     this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
+    // ]
 
     checkIfEditable(){}
     makeSubCard(name){
@@ -76,6 +94,7 @@ class ToDoCard extends ToDoProject{
         return subCard
     }
 }
+
 
 
 class ProjectManager{
@@ -202,6 +221,27 @@ const card1D04S00 = card1D03S00.makeSubCard("card1D04")
 DisplayPrinter.printSubItemRecurse(card1)
 
 //Mixin for shared functionality between projects and to-do items
+
+const testobj = {babo:'bab', erer:2}
+
+
+const testCard = new ToDoCard("testcard")
+testCard.setCardProperties = {
+    description:"blahblabblahblahblahblabhalbha",
+    dueDate: "2/2/2024",
+    eowqje: "SHOULDNT BE HERE - FAULTY PROPERTY NAME",
+    priority: "high",
+    isItComplete: false,
+    checkList:[1,2,3,4,5]
+}
+
+console.log(testCard);
+
+//  this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
+//what happens if there are properties missing?
+
+
+
 // Object.assign(ToDoItem, Project)
 //Common methods
 //delete, add
