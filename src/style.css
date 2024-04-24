@@ -44,3 +44,45 @@ nav ul button{
 /* .card:nth-child(odd){
     background-color: #fff;
 } */
+
+dialog{
+    display:grid;
+    width: 80vw;
+    height: 70vh;
+}
+dialog .properties{
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 50px repeat(4,1fr);
+}
+dialog .properties *{
+    border: 5px dotted white;
+}
+
+dialog .properties [for=priority]{
+    grid-column: -2/-1;
+    grid-row: 1
+}
+dialog .properties .which-project{
+    grid-column: -2/-1;
+    grid-row:2
+}
+dialog .properties [for=name]{
+    grid-column: -1/1;
+    grid-row:1
+}
+dialog .properties [for=description]{
+    grid-column: 1/5;
+    grid-row: 2/4
+}
+dialog .properties #complete{
+    grid-column: 2/3;
+    grid-row:1/2
+}
+dialog .properties .checklist{
+    grid-column: 1/6;
+    grid-row: 4/5
+}
+
+
+

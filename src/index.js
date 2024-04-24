@@ -48,7 +48,7 @@ class ToDoCard extends ToDoProject{
         this.maxCardDepthLevel = 0
     }
     
-    static editableProps = ["name", "description", "dueDate", "priority", "isItComplete", "checkList"]
+    static editableProps = ["name", "description", "dueDate", "priority", "isItComplete", "checkList", "whichProject"]
 
     // static editableProps = [this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
     // ]
@@ -239,7 +239,6 @@ DisplayPrinter.printSubItemRecurse(card1)
 
 //Mixin for shared functionality between projects and to-do items
 
-const testobj = {babo:'bab', erer:2}
 
 
 const testCard = new ToDoCard("testcard")
@@ -249,14 +248,9 @@ testCard.setCardProperties = {
     eowqje: "SHOULDNT BE HERE - FAULTY PROPERTY NAME",
     priority: "high",
     isItComplete: false,
-    checkList:[1,2,3,4,5]
+    checkList:[1,2,3,4,5],
+    whichProject: "Project XYZ"
 }
-
-console.log(testCard);
-
-//  this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
-//what happens if there are properties missing?
-
 
 
 // Object.assign(ToDoItem, Project)

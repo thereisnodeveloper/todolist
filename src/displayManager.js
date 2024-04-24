@@ -1,3 +1,5 @@
+import { ProjectManager } from "."
+
 export default {addToDisplay, addClass, updateContainer}
 
 const docContent=document.querySelector(".doc-content")
@@ -26,8 +28,8 @@ function updateContainer(project){
     
 }
 
-function attachEventListener(event, targetElem){
-    target.addEventListener("click", )
+function attachEventListener(event, ){
+    target.addEventListener("click", ProjectManager.switchCurrentProject(project))
 }
 
 
