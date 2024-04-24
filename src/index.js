@@ -236,11 +236,6 @@ testCard.setCardProperties = {
 }
 
 
-//  this.name, this.description, this.dueDate, this."priority", "this"."isItComplete", this.checkList
-//what happens if there are properties missing?
-
-
-
 // Object.assign(ToDoItem, Project)
 //Common methods
 //delete, add
