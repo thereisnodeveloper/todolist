@@ -183,7 +183,6 @@ class DisplayPrinter{ //prints configured properties of an object
     
 }
 
-
 const card1 = new ToDoCard("card1D0")
 // ToDoCard.maxCardDepthLevel
 // console.log(card1);
