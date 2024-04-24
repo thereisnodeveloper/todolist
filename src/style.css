@@ -15,7 +15,7 @@ nav{
 nav ul button{
     border: green 1px solid;
     padding: 5px;
-    padding: 0 20px 0 20px;
+    padding: 0 20px 0 2 0px;
     margin-bottom: 5px;
 }
 
@@ -46,17 +46,31 @@ nav ul button{
 } */
 
 dialog{
-    display:grid;
     width: 80vw;
     height: 70vh;
 }
-dialog .properties{
+dialog form.properties{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px
+}
+
+dialog .close-modal{
+    flex: 0 0 0;
+}
+
+dialog textarea{
+    resize:none
+}
+
+dialog form.properties section {
     display:grid;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: 50px repeat(4,1fr);
 }
-dialog .properties *{
-    border: 5px dotted white;
+dialog form.properties  section *{
+    border: 5px dotted rgb(87, 247, 72);
 }
 
 dialog .properties [for=priority]{

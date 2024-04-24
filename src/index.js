@@ -131,15 +131,14 @@ static switchCurrentProject(project){
 
 static callDisplayProjArray(){ //calls display manager and displays the projArray
 }
-
-
-
 }
 
 ProjectManager.createProject()
 
 
-
+class ModalManager{
+    closeModal(){}
+}
 
 
 
