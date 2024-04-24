@@ -1,5 +1,6 @@
 import display from "./displayManager.js"
 import "./style.css"
+export {ProjectManager}
 
 
 class ToDoObj{
@@ -79,17 +80,40 @@ class ToDoCard extends ToDoProject{
 
 
 class ProjectManager{
+static{
+    this.projectsArray = []
+    this.projNum = ToDoProject.numOfProjects
+    this.currentProject
+}
+    
 
 static createProject(name = "Project"){
-display.addToDisplay(name, document.querySelector("nav"),"li")
-new ToDoProject(name)
+    const elemLI = display.addToDisplay(name, document.querySelector("ul"),"button")
+    const newProj = new ToDoProject(name)
+    this.projectsArray.pop(newProj)
+    //add eventlistener to li
+    elemLI.addEventListener("click", this.switchCurrentProject(newProj)) //clicking the project buttonswitch to this project 
+    //FIXME:
+    
+    
+    console.log(elemLI);
 
+    this.switchCurrentProject(newProj,elemLI) //immediately switch to this project upon creation
+    return(newProj)
 }
 
-switchCurrentProject(){
+static switchCurrentProject(project){
+    this.currentProject = project
     //if click on proj, switch to it
     //if create new proj, switch to it
+    //swap out content with project content
+    display.updateContainer(project)
 }
+
+static callDisplayProjArray(){ //calls display manager and displays the projArray
+}
+
+
 
 }
 
@@ -131,12 +155,10 @@ class DisplayPrinter{ //prints configured properties of an object
             const content = `${entry[0]} : ${entry[1]}`
             
 
-            //TODO: organize this code separately
     
             const elem = display.addToDisplay(content, objElem)
             display.addClass(elem, entry[0])
-            // display.addToDisplay(objElem)
-            // display.addToDisplay("  ")            
+         
 
         })
         objElem.classList.add(obj.name)
@@ -166,11 +188,7 @@ class DisplayPrinter{ //prints configured properties of an object
 
         function addDepthSeparator(depth,target){
             let content = "_"
-            // content.concat("_".repeat(depth))
             content = content.repeat(depth * 2)
-            // for(let i=0; i < depth + 1 ;i++){
-            //     content.concat("-")
-            // }
             display.addToDisplay(content,target)
         }   
 
