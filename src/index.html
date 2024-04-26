@@ -7,5 +7,50 @@
 </head>
 <body>
     <h1>To-do List</h1>
+    <div class="content-wrapper">
+        <nav>
+            <button class="add-project">Add Project +</button>
+            <li>proj</li>
+            <li>proj</li>
+            <li>proj</li>
+        </nav>
+        <div class="doc-content">
+        </div>
+        <dialog class="card-modal">
+                <form class="properties" action="" method="post">
+                    <label for="name">
+                        <textarea name="card-name" id="name" cols="30"
+                        rows="10" placeholder="NAME:"></textarea>
+                    </label>
+                    <label for="description">
+                        <textarea name="card-description" id="description" cols="30"
+                        rows="10" placeholder="DESCRIPTION:"></textarea>
+                    </label>
+                    <label for="priority">PRIORITY:
+                        
+                        <select name="card-priority" id="priority">
+                            <option value="high">High</option>
+                            <option value="normal">Normal</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </label>
+
+                    <!-- <div class="priority">Priority</div> -->
+                    
+                    <label for="complete">
+                        <input type="checkbox" name="card-complete"
+                        id="complete"> Is it complete?
+                    </label>
+                    <!-- <div class="is-it-complete">isItComplete</div> -->
+
+                    <div class="checklist">checkList</div>
+
+
+                    <div class="which-project">whichProject</div>
+                </form>
+        </dialog>
+    </div>
+    
+
 </body>
 </html>

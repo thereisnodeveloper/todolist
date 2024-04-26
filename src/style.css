@@ -1,1 +1,87 @@
 :root{   font-family:-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif; }
+
+.content-wrapper{
+    display: flex;
+}
+
+li{
+    list-style: none;
+}
+nav{
+    padding: 20px;
+    border:white 3px solid;
+        
+}
+nav li{
+    border: green 1px solid;
+    padding: 5px;
+    padding: 0 20px 0 20px;
+    margin-bottom: 5px;
+}
+
+.doc-content{
+    border: 3px blue solid;
+    background-color: #e77979;
+    display:grid;
+    grid-template: min-content / min-content;
+    position:relative
+}
+
+.card{
+    /* background-color: #63ff85; */
+    background-color:hsl(156, 100%, 52%) ;
+    padding: 10px;
+    border: 2px blue solid;
+    position:relative;
+    text-wrap: nowrap;
+}
+
+.card .cardDepthLevel{
+    margin-bottom: 20px;
+}
+
+/* .card:nth-child(odd){
+    background-color: #fff;
+} */
+
+dialog{
+    display:grid;
+    width: 80vw;
+    height: 70vh;
+}
+dialog .properties{
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 50px repeat(4,1fr);
+}
+dialog .properties *{
+    border: 5px dotted white;
+}
+
+dialog .properties [for=priority]{
+    grid-column: -2/-1;
+    grid-row: 1
+}
+dialog .properties .which-project{
+    grid-column: -2/-1;
+    grid-row:2
+}
+dialog .properties [for=name]{
+    grid-column: -1/1;
+    grid-row:1
+}
+dialog .properties [for=description]{
+    grid-column: 1/5;
+    grid-row: 2/4
+}
+dialog .properties #complete{
+    grid-column: 2/3;
+    grid-row:1/2
+}
+dialog .properties .checklist{
+    grid-column: 1/6;
+    grid-row: 4/5
+}
+
+
+

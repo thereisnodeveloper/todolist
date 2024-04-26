@@ -4,7 +4,8 @@
   "main": "plans.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "watch": "webpack --watch"
   },
   "keywords": [],
   "author": "",
