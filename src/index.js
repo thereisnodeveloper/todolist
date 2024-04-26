@@ -23,15 +23,16 @@ class ToDoProject extends ToDoObj{
         this.numOfProjects = 0 //this here refers to the class, not instance
     }
 
-    constructor(){
+    constructor(name){
         super()
         ToDoProject.numOfProjects++
         this.subItemArray = ToDoProject.makeSubItemArray()
+        this.name = name
     }
 }
 
 const proj1 = new ToDoProject('test')
-console.log(proj1);
+// console.log(proj1);
 
 
 class ToDoCard extends ToDoProject{
@@ -98,25 +99,35 @@ class ToDoCard extends ToDoProject{
 
 
 class ProjectManager{
+    constructor(){
+        
+    }
+    static {
+        this.arrayOfProjects = []
+        this.currentProject
+    }
 
-static createProject(name = "Project"){
-display.addToDisplay(name, document.querySelector("nav"),"li")
-new ToDoProject(name)
+    static createProject(name = "Project"){
+        display.addToDisplay(document.querySelector("nav ul"),name, "li")
+        
+        this[name] = new ToDoProject(name)
+        const result = this[name]
+        this.arrayOfProjects.push(result)
+        return result
+        this.switchCurrentProject(result)
+    }
 
+    static switchCurrentProject(projToSwitchTo){
+        //if click on proj, switch to it
+        //if create new proj, switch to it
+        
+    }
 }
 
-switchCurrentProject(){
-    //if click on proj, switch to it
-    //if create new proj, switch to it
-}
-
-}
-
-ProjectManager.createProject()
-
-
-
-
+ProjectManager.createProject("proj 1")
+ProjectManager.createProject("proj 2")
+ProjectManager.createProject("proj 3")
+// display.batchAdd(document.querySelector("nav ul"), ProjectManager.arrayOfProjects ,"li")
 
 
 class DisplayPrinter{ //prints configured properties of an object
@@ -152,7 +163,7 @@ class DisplayPrinter{ //prints configured properties of an object
 
             //TODO: organize this code separately
     
-            const elem = display.addToDisplay(content, objElem)
+            const elem = display.addToDisplay(objElem,content)
             display.addClass(elem, entry[0])
             // display.addToDisplay(objElem)
             // display.addToDisplay("  ")            
@@ -190,7 +201,7 @@ class DisplayPrinter{ //prints configured properties of an object
             // for(let i=0; i < depth + 1 ;i++){
             //     content.concat("-")
             // }
-            display.addToDisplay(content,target)
+            display.addToDisplay(target,content)
         }   
 
         (function alternateColorByDepth(){

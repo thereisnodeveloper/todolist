@@ -1,12 +1,12 @@
-export default {addToDisplay, addClass}
+export default {addToDisplay, addClass, batchAdd}
 
 const docContent=document.querySelector(".doc-content")
 
-function addToDisplay(content, target=docContent, elemType="div"){
-    const elem = document.createElement(elemType)
-    elem.textContent = content
-    target.appendChild(elem)
-    return elem
+function addToDisplay(target = docContent, content, elemType = "div") {
+  const elem = document.createElement(elemType);
+  elem.textContent = content;
+  target.appendChild(elem);
+  return elem;
 }
 
 function addClass(target, content){
@@ -26,14 +26,21 @@ function addEventListener(target, eventListener){
 
 
 
-function batchAdd(){ //keeps adding elements to a thing until there aren't more to add
+function batchAdd(target, array, elemtype){ //keeps adding elements to a thing until there aren't more to add
     //define 1 batch
+    array.forEach((item)=>{
+        addToDisplay(target, item, elemtype)
+    })
+    // addClass(target,"nav li")
 
 }
+// batchAdd(document.querySelector("nav ul"), element, array,"li")
 
 //use svg to connect elemens
 function connectTree(){
 
 }
+
+
 
 function update(){}
