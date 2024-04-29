@@ -1,6 +1,8 @@
+// import { container } from "webpack"
 import display from "./displayManager.js"
 import "./style.css"
-export {ProjectManager}
+
+const projectsContainer = document.querySelector(".doc-content")
 
 
 class ToDoObj{
@@ -24,22 +26,41 @@ class ToDoProject extends ToDoObj{
         this.numOfProjects = 0 //this here refers to the class, not instance
     }
 
-    constructor(){
+    constructor(name){
         super()
         ToDoProject.numOfProjects++
         this.subItemArray = ToDoProject.makeSubItemArray()
+        this.elemRef
+        this.name = name || "default"
+        this.cardDepthLevel = 0
     }
+    makeSubItem(name){
+        const subItem = new ToDoCard(name)
+        const objElem = document.createElement("div")
+        subItem.elemRef = objElem
+        subItem.parent = this
+        subItem.cardDepthLevel = this.cardDepthLevel
+        subItem.cardDepthLevel++
+        // if(this.subItemArray.length === 0) {subCard.cardDepthLevel++};
+        if(ToDoCard.maxCardDepthLevel < subItem.cardDepthLevel){
+            ToDoCard.maxCardDepthLevel = subItem.cardDepthLevel
+        }
+        this.subItemArray.push(subItem)
+
+
+        return subItem
+    }
+
 }
 
 const proj1 = new ToDoProject('test')
-console.log(proj1);
+// console.log(proj1);
 
 
 class ToDoCard extends ToDoProject{
     constructor(name){
         super()
-        this.name = name || "default"
-        this.cardDepthLevel = 0 
+        this.name = name
         // Printer.print(this)
         this.class
         // this.parent
@@ -80,9 +101,14 @@ class ToDoCard extends ToDoProject{
     checkIfEditable(){}
     makeSubCard(name){
         const subCard = new ToDoCard(name)
+<<<<<<<<< Temporary merge branch 1
+        subCard.father = this
+        console.log(subCard);
+=========
         const objElem = document.createElement("div")
         subCard.elemRef = objElem
         subCard.parent = this
+>>>>>>>>> Temporary merge branch 2
         subCard.cardDepthLevel = this.cardDepthLevel
         subCard.cardDepthLevel++
         // if(this.subItemArray.length === 0) {subCard.cardDepthLevel++};
@@ -121,24 +147,33 @@ static createProject(name = "Project"){
     return(newProj)
 }
 
-static switchCurrentProject(project){
-    this.currentProject = project
-    //if click on proj, switch to it
-    //if create new proj, switch to it
-    //swap out content with project content
-    display.updateContainer(project)
+    static switchCurrentProject(projToSwitchTo){
+        //if click on proj, switch to it
+        //if create new proj, switch to it
+        this.currentProject = projToSwitchTo
+        return this.currentProject        
+    }
+
+    static createProject(name = "Project"){
+        //
+
+        //create project and put in project list
+        display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
+        this[name] = new ToDoProject(name)
+        const result = this[name]
+        this.arrayOfProjects.push(result)
+        this.switchCurrentProject(result)
+
+        //get project element and put it in the project object
+        const projectElem = display.createAndAddToDisplay(projectsContainer,name,"div")
+        display.addClass(projectElem,"project")
+        return projectElem
+
+    }
+
 }
 
-static callDisplayProjArray(){ //calls display manager and displays the projArray
-}
-}
-
-ProjectManager.createProject()
-
-
-class ModalManager{
-    closeModal(){}
-}
+// display.batchAdd(document.querySelector("nav ul"), ProjectManager.arrayOfProjects ,"li")
 
 
 
@@ -174,7 +209,7 @@ class DisplayPrinter{ //prints configured properties of an object
             
 
     
-            const elem = display.addToDisplay(content, objElem)
+            const elem = display.createAndAddToDisplay(objElem,content)
             display.addClass(elem, entry[0])
          
 
@@ -194,11 +229,10 @@ class DisplayPrinter{ //prints configured properties of an object
             console.log('no subArray');
             return
         }
-        const container = document.querySelector(".doc-content")
         
         obj.subItemArray.forEach(item=>{
                 const {objElem, obj: targetObj}  = this.printObjContents(item) //this = DisplayPrinter
-                const parentElem = targetObj.parent.elemRef ? targetObj.parent.elemRef  : container
+                const parentElem = targetObj.parent.elemRef ? targetObj.parent.elemRef  : projectsContainer
                 
                 parentElem.appendChild(objElem)
                 this.printSubItemRecurse(item) //recursion here
@@ -206,8 +240,12 @@ class DisplayPrinter{ //prints configured properties of an object
 
         function addDepthSeparator(depth,target){
             let content = "_"
+            // content.concat("_".repeat(depth))
             content = content.repeat(depth * 2)
-            display.addToDisplay(content,target)
+            // for(let i=0; i < depth + 1 ;i++){
+            //     content.concat("-")
+            // }
+            display.createAndAddToDisplay(target,content)
         }   
 
         (function alternateColorByDepth(){
@@ -219,23 +257,42 @@ class DisplayPrinter{ //prints configured properties of an object
     
 }
 
-const card1 = new ToDoCard("card1D0")
-// ToDoCard.maxCardDepthLevel
-// console.log(card1);
 
+(function initialize(){
+    console.log('creating project');
+    ProjectManager.createProject("proj1")
+    ProjectManager.createProject("proj2")
+    ProjectManager.createProject("proj3")
 
-const card3 = new ToDoCard("card3D0")
-// card3.makeSubCard("card3D1") //depth max 2, current 1
-// card3.makeSubCard("card3D1") //depth max 2, current 1
+    proj1.name
 
-const card1D01S00 = card1.makeSubCard("card1D1")
-const card1D02S00 = card1D01S00.makeSubCard("card1D02")
-const card1D03S00 = card1D02S00.makeSubCard("card1D03") //depth max 2, current 2
-const card1D02S01 = card1D02S00.makeSubCard("card1D03-1")
-const card1D04S00 = card1D03S00.makeSubCard("card1D04")
+    // const card = proj1.makeSubItem("card1")
+    // console.log(card);
+    
+    proj1.makeSubItem("card1D01").makeSubItem("card1D02")
+    proj1.makeSubItem("test")
 
-DisplayPrinter.printSubItemRecurse(card1)
+    DisplayPrinter.printSubItemRecurse(proj1)
 
+    // const card1 = new ToDoCard("card1D0")
+    // ToDoCard.maxCardDepthLevel
+    // console.log(card1);
+    
+    
+    // const card3 = new ToDoCard("card3D0")
+    // card3.makeSubCard("card3D1") //depth max 2, current 1
+    // card3.makeSubCard("card3D1") //depth max 2, current 1
+    
+    // const card1D01S00 = card1.makeSubCard("card1D1")
+    // const card1D02S00 = card1D01S00.makeSubCard("card1D02")
+    // const card1D03S00 = card1D02S00.makeSubCard("card1D03") //depth max 2, current 2
+    // const card1D02S01 = card1D02S00.makeSubCard("card1D03-1")
+    // const card1D04S00 = card1D03S00.makeSubCard("card1D04")
+    
+    // DisplayPrinter.printSubItemRecurse(card1)
+    
+    
+})()
 //Mixin for shared functionality between projects and to-do items
 
 

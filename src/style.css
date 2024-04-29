@@ -7,12 +7,16 @@
 li{
     list-style: none;
 }
-nav{
+nav ul{
     padding: 20px;
     border:white 3px solid;
         
 }
+<<<<<<< HEAD
 nav ul button{
+=======
+nav ul li{
+>>>>>>> 5b2edbdbe577ed16717f09516272320ad729437e
     border: green 1px solid;
     padding: 5px;
     padding: 0 20px 0 2 0px;
@@ -46,6 +50,10 @@ nav ul button{
 } */
 
 dialog{
+<<<<<<< HEAD
+=======
+    /* display:grid; */
+>>>>>>> 5b2edbdbe577ed16717f09516272320ad729437e
     width: 80vw;
     height: 70vh;
 }
