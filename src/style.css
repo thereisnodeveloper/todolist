@@ -30,7 +30,7 @@ nav ul li{
 .card{
     /* background-color: #63ff85; */
     background-color:hsl(156, 100%, 52%) ;
-    padding: 10px;
+    padding: 30px;
     border: 2px blue solid;
     position:relative;
     text-wrap: nowrap;
@@ -83,5 +83,10 @@ dialog .properties .checklist{
     grid-row: 4/5
 }
 
+.card{
+    /* display:none;
+    overflow:hidden;
+    width:clamp(100px, 1fr, 80vw) */
+}
 
 

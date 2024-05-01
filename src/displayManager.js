@@ -1,5 +1,4 @@
-export default {addToDisplay, addClass, batchAdd}
-
+export default {addToDisplay, addClass, batchAdd, createAndAddToDisplay}
 const docContent=document.querySelector(".doc-content")
 
 function addToDisplay(target = docContent, content, elemType = "div") {
@@ -23,6 +22,30 @@ function addEventListener(target, eventListener){
 
 // document.querySelector(selectors)
 
+function createAndAddToDisplay(target = docContent, content, elemType = "div") {
+    const elem = document.createElement(elemType);
+    elem.textContent = content;
+    target.appendChild(elem);
+    return elem;
+}
+
+
+/**
+ * 
+ * @param {Element} cardElem 
+ */
+function addButtons(cardElem){
+    const target = cardElem;
+    const elemSectionWrapper = document.createElement("section")
+    elemSectionWrapper.classList.add("button-section")
+    
+
+    const elemToEmbed = doucment.createElement('button')
+    elemToEmbed.classList.add('')
+
+    //embed all the button elements
+    elemSectionWrapper.appendChild()
+}
 
 
 
