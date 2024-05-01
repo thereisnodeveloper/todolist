@@ -1,7 +1,7 @@
 // import { container } from "webpack"
 import display from "./displayManager.js"
 import "./style.css"
-import ProjectManagerJS from "./project_manager.js";
+// import ProjectManagerJS from "./project_manager.js";
 
 const projectsContainer = document.querySelector(".doc-content")
 
@@ -124,27 +124,12 @@ class ToDoCard extends ToDoProject{
 
 class ProjectManager{
 static{
-    this.projectsArray = []
+    this.arrayOfProjects = []
     this.projNum = ToDoProject.numOfProjects
     this.currentProject
 }
     
 
-static createProject(name = "Project"){
-    const elemLI = display.addToDisplay(name, document.querySelector("ul"),"button")
-    const newProj = new ToDoProject(name)
-    this.projectsArray.pop(newProj)
-    //add eventlistener to li
-    elemLI.addEventListener("click", this.switchCurrentProject(newProj)) //clicking the project buttonswitch to this project 
-    //FIXME:
-    
-    
-    console.log(elemLI);
-    
-
-    this.switchCurrentProject(newProj,elemLI) //immediately switch to this project upon creation
-    return(newProj)
-}
 
     static switchCurrentProject(projToSwitchTo){
         //if click on proj, switch to it
@@ -155,10 +140,9 @@ static createProject(name = "Project"){
 
     static createProject(name = "Project"){
         //
-
         //create project and put in project list
         display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
-        this[name] = new ToDoProject(name)
+        this[name] = new ToDoProject(name) //FIXME: should create reference to the created project
         const result = this[name]
         this.arrayOfProjects.push(result)
         this.switchCurrentProject(result)
@@ -258,7 +242,6 @@ class DisplayPrinter{ //prints configured properties of an object
 
 
 (function initialize(){
-    console.log('creating project');
     ProjectManager.createProject("proj1")
     ProjectManager.createProject("proj2")
     ProjectManager.createProject("proj3")
@@ -312,4 +295,4 @@ testCard.setCardProperties = {
 //Common methods
 //delete, add
 
-export {ToDoProject}
+export default {ToDoProject}

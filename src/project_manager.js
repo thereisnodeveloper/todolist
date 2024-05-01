@@ -1,4 +1,4 @@
-import {ToDoProject} from "./index.js"
+import ToDoProject from "./index.js"
 import display from "./displayManager.js" 
 
 class ProjectManager{

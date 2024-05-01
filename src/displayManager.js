@@ -1,11 +1,11 @@
-export default {addToDisplay, addClass, batchAdd}
-import "./project_manager.js"
+export default {createAndAddToDisplay, addClass, batchAdd}
+// import "./project_manager.js"
 import {ToDoProject} from "./index.js"
 
 
 const docContent=document.querySelector(".doc-content")
 
-function addToDisplay(target = docContent, content, elemType = "div") {
+function createAndAddToDisplay(target = docContent, content, elemType = "div") {
   const elem = document.createElement(elemType);
   elem.textContent = content;
   target.appendChild(elem);
@@ -21,18 +21,26 @@ function addEventListener(target, eventListener){
     
 }
 
-// event listeners
 
+//TODO: when obj, create and embed these buttons:
 
-// document.querySelector(selectors)
+//expand/collapse
 
+//break down (new sublist)
 
+//clear card
+
+//delete card
+
+//create new card(as sibling)
+
+//moveto / change parent
 
 
 function batchAdd(target, array, elemtype){ //keeps adding elements to a thing until there aren't more to add
     //define 1 batch
     array.forEach((item)=>{
-        addToDisplay(target, item, elemtype)
+        createAndAddToDisplay(target, item, elemtype)
     })
     // addClass(target,"nav li")
 
