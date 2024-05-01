@@ -4,6 +4,7 @@
     display: flex;
 }
 
+
 li{
     list-style: none;
 }
@@ -12,16 +13,16 @@ nav ul{
     border:white 3px solid;
         
 }
-<<<<<<< HEAD
-nav ul button{
-=======
 nav ul li{
->>>>>>> 5b2edbdbe577ed16717f09516272320ad729437e
     border: green 1px solid;
     padding: 5px;
     padding: 0 20px 0 2 0px;
     margin-bottom: 5px;
 }
+/* 
+form section{
+    display:grid
+} */
 
 .doc-content{
     border: 3px blue solid;
@@ -50,10 +51,7 @@ nav ul li{
 } */
 
 dialog{
-<<<<<<< HEAD
-=======
     /* display:grid; */
->>>>>>> 5b2edbdbe577ed16717f09516272320ad729437e
     width: 80vw;
     height: 70vh;
 }
@@ -76,6 +74,7 @@ dialog form.properties section {
     display:grid;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: 50px repeat(4,1fr);
+    background-color: #8d1313;
 }
 dialog form.properties  section *{
     border: 5px dotted rgb(87, 247, 72);
@@ -85,7 +84,7 @@ dialog .properties [for=priority]{
     grid-column: -2/-1;
     grid-row: 1
 }
-dialog .properties .which-project{
+dialog .properties .which{
     grid-column: -2/-1;
     grid-row:2
 }

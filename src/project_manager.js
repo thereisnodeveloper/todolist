@@ -1,4 +1,5 @@
-export default
+import {ToDoProject} from "./index.js"
+import display from "./displayManager.js" 
 
 class ProjectManager{
     static{
@@ -35,3 +36,5 @@ class ProjectManager{
     }
     }
     
+
+export default ProjectManager

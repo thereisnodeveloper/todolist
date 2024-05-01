@@ -1,6 +1,7 @@
 // import { container } from "webpack"
 import display from "./displayManager.js"
 import "./style.css"
+import ProjectManagerJS from "./project_manager.js";
 
 const projectsContainer = document.querySelector(".doc-content")
 
@@ -101,14 +102,11 @@ class ToDoCard extends ToDoProject{
     checkIfEditable(){}
     makeSubCard(name){
         const subCard = new ToDoCard(name)
-<<<<<<<<< Temporary merge branch 1
-        subCard.father = this
-        console.log(subCard);
-=========
+
         const objElem = document.createElement("div")
         subCard.elemRef = objElem
         subCard.parent = this
->>>>>>>>> Temporary merge branch 2
+
         subCard.cardDepthLevel = this.cardDepthLevel
         subCard.cardDepthLevel++
         // if(this.subItemArray.length === 0) {subCard.cardDepthLevel++};
@@ -142,6 +140,7 @@ static createProject(name = "Project"){
     
     
     console.log(elemLI);
+    
 
     this.switchCurrentProject(newProj,elemLI) //immediately switch to this project upon creation
     return(newProj)
@@ -312,3 +311,5 @@ testCard.setCardProperties = {
 // Object.assign(ToDoItem, Project)
 //Common methods
 //delete, add
+
+export {ToDoProject}
