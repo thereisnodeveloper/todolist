@@ -2,16 +2,13 @@
 import display from "./displayManager.js"
 import "./style.css"
 
-
 const projectsContainer = document.querySelector(".doc-content")
-
+const testElem = document.querySelector(".doc-content")
 
 class ToDoObj{
     // constructor(){
     //     // this.name = name
     // }
-    
-    
     static makeSubItemArray(){
         return []
     }
@@ -129,19 +126,33 @@ class ProjectManager{
         const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
 
         this[name] = new ToDoProject(name)
-        const result = this[name]
-        this.arrayOfProjects.push(result)
-        this.switchCurrentProject(result)
+        const createdProject = this[name]
+        this.arrayOfProjects.push(createdProject)
+        this.switchCurrentProject(createdProject)
 
         //get project element and put it in the project object
-        const projectElem = display.createAndAddToDisplay(projectsContainer,name,"div")
+        const projectElem = display.createAndAddToDisplay(elemLI,"","div")
+        createdProject.projElemRef = projectElem
+
         display.addClass(projectElem,"project")
+        display.addClass(projectElem, name)
         return projectElem
 
     }
+    /**
+     * 
+     * @param {Element} elem 
+     */
+    static deleteProject(elem){
+        //FIXME: find obj that the element is referring ot and delete it
+            // elem.cl
+        // const elemToDelete = ProjectManager.arrayOfProjects.find(elem)
+        
+    }
 
+    
 }
-
+// testElem.parentElement
 // display.batchAdd(document.querySelector("nav ul"), ProjectManager.arrayOfProjects ,"li")
 
 
@@ -230,12 +241,11 @@ class DisplayPrinter{ //prints configured properties of an object
 
 
 (function initialize(){
-    console.log('creating project');
     ProjectManager.createProject("proj1")
     ProjectManager.createProject("proj2")
     ProjectManager.createProject("proj3")
 
-    proj1.name
+    
 
     // const card = proj1.makeSubItem("card1")
     // console.log(card);
@@ -265,7 +275,7 @@ testCard.setCardProperties = {
     whichProject: "Project XYZ"
 }
 
-    import TrashCan from "./img/trash.png"
+import TrashCan from "./img/trash.png"
 
 (function attachIcons(){
 
@@ -273,8 +283,22 @@ testCard.setCardProperties = {
     iconTrash.src = TrashCan
     iconTrash.style.width = "1.2em"
     iconTrash.style.height = "1.2em"
-    document.querySelectorAll("nav ul li").forEach(elem =>{
+    document.querySelectorAll("nav ul li div").forEach(elem =>{
         const clone = iconTrash.cloneNode(false)
         elem.appendChild(clone)
     })
 })()
+
+function deleteProject(evt){
+    //delete from UI
+    elem.parentElement.parentElement.remove()
+    //delete from projects list
+    ProjectManager.deleteProject(evt.target)
+}
+
+function applyEventListeners(){
+    document.querySelectorAll("nav ul li div img").forEach(elem =>{
+        elem.addEventListener("click",deleteProject)
+    })
+}
+applyEventListeners()

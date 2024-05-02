@@ -1,4 +1,4 @@
-export default {addToDisplay, addClass, batchAdd, createAndAddToDisplay}
+export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay}
 const docContent=document.querySelector(".doc-content")
 
 function addToDisplay(target = docContent, content, elemType = "div") {
@@ -8,21 +8,28 @@ function addToDisplay(target = docContent, content, elemType = "div") {
   return elem;
 }
 
-function addClass(target, content){
+/**
+ * add class by default, if not add attribute
+ * @param {Element} target 
+ * @param {*} content 
+ * @param {String} attribute 
+ * @returns 
+ */
+function addAttribute(target, content, attribute =null){
+    if(attribute){
+        target.setAttribute(attribute, content)
+    }
     target.classList.add(content)
     return target
 }
 
-function addEventListener(target, eventListener){
-    
-}
 
 // event listeners
 
 
 // document.querySelector(selectors)
 
-function createAndAddToDisplay(target = docContent, content, elemType = "div") {
+function createAndAddToDisplay(target = docContent, content = "", elemType = "div") {
     const elem = document.createElement(elemType);
     elem.textContent = content;
     target.appendChild(elem);
@@ -59,12 +66,4 @@ function batchAdd(target, array, elemtype){ //keeps adding elements to a thing u
 }
 // batchAdd(document.querySelector("nav ul"), element, array,"li")
 
-//use svg to connect elemens
-function connectTree(){
-
-}
-
-
-
-function update(){}
 
