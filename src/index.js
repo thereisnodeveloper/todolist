@@ -2,6 +2,7 @@
 import display from "./displayManager.js"
 import "./style.css"
 
+
 const projectsContainer = document.querySelector(".doc-content")
 
 
@@ -125,7 +126,8 @@ class ProjectManager{
         //
 
         //create project and put in project list
-        display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
+        const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
+
         this[name] = new ToDoProject(name)
         const result = this[name]
         this.arrayOfProjects.push(result)
@@ -243,22 +245,8 @@ class DisplayPrinter{ //prints configured properties of an object
 
     DisplayPrinter.printSubItemRecurse(proj1)
 
-    // const card1 = new ToDoCard("card1D0")
-    // ToDoCard.maxCardDepthLevel
-    // console.log(card1);
-    
-    
-    // const card3 = new ToDoCard("card3D0")
-    // card3.makeSubCard("card3D1") //depth max 2, current 1
-    // card3.makeSubCard("card3D1") //depth max 2, current 1
-    
-    // const card1D01S00 = card1.makeSubCard("card1D1")
     // const card1D02S00 = card1D01S00.makeSubCard("card1D02")
     // const card1D03S00 = card1D02S00.makeSubCard("card1D03") //depth max 2, current 2
-    // const card1D02S01 = card1D02S00.makeSubCard("card1D03-1")
-    // const card1D04S00 = card1D03S00.makeSubCard("card1D04")
-    
-    // DisplayPrinter.printSubItemRecurse(card1)
     
     
 })()
@@ -277,7 +265,16 @@ testCard.setCardProperties = {
     whichProject: "Project XYZ"
 }
 
+    import TrashCan from "./img/trash.png"
 
-// Object.assign(ToDoItem, Project)
-//Common methods
-//delete, add
+(function attachIcons(){
+
+    const iconTrash = new Image(100,20)
+    iconTrash.src = TrashCan
+    iconTrash.style.width = "1.2em"
+    iconTrash.style.height = "1.2em"
+    document.querySelectorAll("nav ul li").forEach(elem =>{
+        const clone = iconTrash.cloneNode(false)
+        elem.appendChild(clone)
+    })
+})()

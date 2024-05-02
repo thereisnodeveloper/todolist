@@ -1,5 +1,9 @@
 :root{   font-family:-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif; }
 
+body{
+    background-color: rgb(98, 95, 95);
+}
+
 .content-wrapper{
     display: flex;
 }
@@ -7,6 +11,12 @@
 li{
     list-style: none;
 }
+li:hover, .card:hover{
+    background-color: red;
+    box-shadow: 2px 2px 
+}
+
+
 nav ul{
     padding: 20px;
     border:white 3px solid;
@@ -14,9 +24,14 @@ nav ul{
 }
 nav ul li{
     border: green 1px solid;
-    padding: 5px;
-    padding: 0 20px 0 20px;
+    padding: 5px 5px 5px 20px;
     margin-bottom: 5px;
+    display:flex;   
+    justify-content: space-between;
+}
+
+nav ul li div{
+    flex: 0;
 }
 
 .doc-content{
