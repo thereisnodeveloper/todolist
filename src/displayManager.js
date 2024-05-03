@@ -19,7 +19,8 @@ function addAttribute(target, content, attribute =null){
     if(attribute){
         target.setAttribute(attribute, content)
     }
-    target.classList.add(content)
+    else{
+    target.classList.add(content)}
     return target
 }
 

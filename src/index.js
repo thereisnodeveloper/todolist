@@ -120,7 +120,6 @@ class ProjectManager{
     }
 
     static createProject(name = "Project"){
-        //
 
         //create project and put in project list
         const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
@@ -134,20 +133,25 @@ class ProjectManager{
         const projectElem = display.createAndAddToDisplay(elemLI,"","div")
         createdProject.projElemRef = projectElem
 
-        display.addClass(projectElem,"project")
         display.addClass(projectElem, name)
+        display.addClass(projectElem,"project","type")
+
+        
+        // display.addClass(createdProjectname, "obj-name", );
+        // display.addClass(projectElem, name, "obj-name")
         return projectElem
 
     }
+
     /**
      * 
      * @param {Element} elem 
      */
     static deleteProject(elem){
-        //FIXME: find obj that the element is referring ot and delete it
-            // elem.cl
-        // const elemToDelete = ProjectManager.arrayOfProjects.find(elem)
-        
+            const projIndex = ProjectManager.arrayOfProjects.findIndex(item => {
+                item.name === elem.className
+            })      
+            ProjectManager.arrayOfProjects.splice(projIndex,1)
     }
 
     
@@ -290,10 +294,13 @@ import TrashCan from "./img/trash.png"
 })()
 
 function deleteProject(evt){
+    const liElem = evt.target.parentElement.parentElement
     //delete from UI
-    elem.parentElement.parentElement.remove()
+    
+    liElem.remove()
     //delete from projects list
-    ProjectManager.deleteProject(evt.target)
+    ProjectManager.deleteProject(liElem)
+    console.log('ProjectManager.arrayOfProjects:', ProjectManager.arrayOfProjects)
 }
 
 function applyEventListeners(){
