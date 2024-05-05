@@ -1,6 +1,7 @@
 // import { container } from "webpack"
 import display from "./displayManager.js"
 import "./style.css"
+import "./project-manager.js"
 
 const projectsContainer = document.querySelector(".doc-content")
 const testElem = document.querySelector(".doc-content")
@@ -102,60 +103,59 @@ class ToDoCard extends ToDoProject{
 
 
 
-class ProjectManager{
-    constructor(){
+// class ProjectManager{
+//     constructor(){
         
-    }
-    static {
-        this.arrayOfProjects = []
-        this.currentProject
-    }
+//     }
+//     static {
+//         this.arrayOfProjects = []
+//         this.currentProject
+//     }
 
 
-    static switchCurrentProject(projToSwitchTo){
-        //if click on proj, switch to it
-        //if create new proj, switch to it
-        this.currentProject = projToSwitchTo
-        return this.currentProject        
-    }
+//     static switchCurrentProject(projToSwitchTo){
+//         //if click on proj, switch to it
+//         //if create new proj, switch to it
+//         this.currentProject = projToSwitchTo
+//         return this.currentProject        
+//     }
 
-    static createProject(name = "Project"){
+//     static createProject(name = "Project"){
 
-        //create project and put in project list
-        const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
+//         //create project and put in project list
+//         const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
 
-        this[name] = new ToDoProject(name)
-        const createdProject = this[name]
-        this.arrayOfProjects.push(createdProject)
-        this.switchCurrentProject(createdProject)
+//         this[name] = new ToDoProject(name)
+//         const createdProject = this[name]
+//         this.arrayOfProjects.push(createdProject)
+//         this.switchCurrentProject(createdProject)
 
-        //get project element and put it in the project object
-        const projectElem = display.createAndAddToDisplay(elemLI,"","div")
-        createdProject.projElemRef = projectElem
+//         //get project element and put it in the project object
+//         const projectElem = display.createAndAddToDisplay(elemLI,"","div")
+//         createdProject.projElemRef = projectElem
 
-        display.addClass(projectElem, name)
-        display.addClass(projectElem,"project","type")
+//         display.addClass(projectElem, name)
+//         display.addClass(projectElem,"project","type")
 
         
-        // display.addClass(createdProjectname, "obj-name", );
-        // display.addClass(projectElem, name, "obj-name")
-        return projectElem
+//         // display.addClass(createdProjectname, "obj-name", );
+//         // display.addClass(projectElem, name, "obj-name")
+//         return projectElem
+//     }
 
-    }
-
-    /**
-     * 
-     * @param {Element} elem 
-     */
-    static deleteProject(elem){
-            const projIndex = ProjectManager.arrayOfProjects.findIndex(item => {
-                item.name === elem.className
-            })      
-            ProjectManager.arrayOfProjects.splice(projIndex,1)
-    }
+//     /**
+//      * 
+//      * @param {Element} elem 
+//      */
+//     static deleteProject(elem){
+//             const projIndex = ProjectManager.arrayOfProjects.findIndex(item => {
+//                 item.name === elem.className
+//             })      
+//             ProjectManager.arrayOfProjects.splice(projIndex,1)
+//     }
 
     
-}
+// }
 // testElem.parentElement
 // display.batchAdd(document.querySelector("nav ul"), ProjectManager.arrayOfProjects ,"li")
 
@@ -280,6 +280,7 @@ testCard.setCardProperties = {
 }
 
 import TrashCan from "./img/trash.png"
+import ProjectManager from "./project-manager.js"
 
 (function attachIcons(){
 
@@ -311,3 +312,4 @@ function applyEventListeners(){
 applyEventListeners()
 
 export default ProjectManager
+export {ToDoObj,ToDoCard,ToDoProject}
