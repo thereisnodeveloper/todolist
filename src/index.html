@@ -7,9 +7,15 @@
 </head>
 <body>
     <h1>To-do List</h1>
+    <div class="line"></div>
     <div class="content-wrapper">
         <nav>
-            <button class="add-project">Add Project +</button>
+            <form action="post">
+                <input type="text" name="project-name" id="project-name"
+                value="Project Name">
+                <button class="add-project">Add Project +</button>
+            </form>
+
             <ul>
                 <li>placeholder proj</li>
             </ul>

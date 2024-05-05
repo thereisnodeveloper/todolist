@@ -309,3 +309,5 @@ function applyEventListeners(){
     })
 }
 applyEventListeners()
+
+export default ProjectManager

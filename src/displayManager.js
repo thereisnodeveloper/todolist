@@ -1,5 +1,8 @@
 export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay}
 const docContent=document.querySelector(".doc-content")
+import "./index.js"
+import ProjectManager from "./index.js";
+
 
 function addToDisplay(target = docContent, content, elemType = "div") {
   const elem = document.createElement(elemType);
@@ -67,4 +70,17 @@ function batchAdd(target, array, elemtype){ //keeps adding elements to a thing u
 }
 // batchAdd(document.querySelector("nav ul"), element, array,"li")
 
+
+(function initialize(){
+    document.querySelector("button.add-project").addEventListener("submit", dispAddNewProject())
+})()
+
+function dispAddNewProject(){
+    const projButtonElem = document.querySelector("#project-name")
+    //call add new project from Project Manager
+    // ProjectManager.createProject()
+    //change UI
+
+    return {projButtonElem}
+}
 
