@@ -245,26 +245,20 @@ class DisplayPrinter{ //prints configured properties of an object
 
 
 (function initialize(){
+    display.dispInitialize()
+
     ProjectManager.createProject("proj1")
     ProjectManager.createProject("proj2")
     ProjectManager.createProject("proj3")
 
-    
 
-    // const card = proj1.makeSubItem("card1")
-    // console.log(card);
-    
     proj1.makeSubItem("card1D01").makeSubItem("card1D02")
     proj1.makeSubItem("test")
 
     DisplayPrinter.printSubItemRecurse(proj1)
-
-    // const card1D02S00 = card1D01S00.makeSubCard("card1D02")
-    // const card1D03S00 = card1D02S00.makeSubCard("card1D03") //depth max 2, current 2
     
     
 })()
-//Mixin for shared functionality between projects and to-do items
 
 
 
@@ -279,20 +273,9 @@ testCard.setCardProperties = {
     whichProject: "Project XYZ"
 }
 
-import TrashCan from "./img/trash.png"
 import ProjectManager from "./project-manager.js"
 
-(function attachIcons(){
 
-    const iconTrash = new Image(100,20)
-    iconTrash.src = TrashCan
-    iconTrash.style.width = "1.2em"
-    iconTrash.style.height = "1.2em"
-    document.querySelectorAll("nav ul li div").forEach(elem =>{
-        const clone = iconTrash.cloneNode(false)
-        elem.appendChild(clone)
-    })
-})()
 
 function deleteProject(evt){
     const liElem = evt.target.parentElement.parentElement
@@ -301,7 +284,6 @@ function deleteProject(evt){
     liElem.remove()
     //delete from projects list
     ProjectManager.deleteProject(liElem)
-    console.log('ProjectManager.arrayOfProjects:', ProjectManager.arrayOfProjects)
 }
 
 function applyEventListeners(){

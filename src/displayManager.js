@@ -1,7 +1,12 @@
-export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay}
+export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay, dispInitialize,dispAddNewProject,attachIcons}
 const docContent=document.querySelector(".doc-content")
 import "./index.js"
 import ProjectManager from "./index.js";
+// import ProjectManager from "./index.js";
+import "./project-manager.js"
+
+import TrashCan from "./img/trash.png"
+
 
 
 function addToDisplay(target = docContent, content, elemType = "div") {
@@ -71,16 +76,38 @@ function batchAdd(target, array, elemtype){ //keeps adding elements to a thing u
 // batchAdd(document.querySelector("nav ul"), element, array,"li")
 
 
-(function initialize(){
-    document.querySelector("button.add-project").addEventListener("submit", dispAddNewProject())
-})()
+function dispInitialize(){
+    document.querySelector("button.add-project").addEventListener("click", dispAddNewProject)
+}
 
-function dispAddNewProject(){
+function dispAddNewProject(evt){
+    // evt.target.preventDefault()
+
     const projButtonElem = document.querySelector("#project-name")
     //call add new project from Project Manager
-    // ProjectManager.createProject()
-    //change UI
+    console.log(projButtonElem.value);
 
+    
+    ProjectManager.createProject(projButtonElem.value)
+    // console.log(ProjectManager.arrayOfProjects);
+
+
+    //change UI
+    
     return {projButtonElem}
+}
+
+function attachIcons(imgSrc,target){
+    if(!imgSrc){imgSrc = TrashCan}
+    if(!target){target =  document.querySelectorAll("nav ul li div")}
+    const iconTrash = new Image(100,20)
+    iconTrash.src = TrashCan
+    iconTrash.style.width = "1.2em"
+    iconTrash.style.height = "1.2em"
+
+    
+    const clone = iconTrash.cloneNode(false)
+    target.appendChild(clone)
+
 }
 

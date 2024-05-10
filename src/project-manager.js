@@ -1,5 +1,5 @@
 import display from "./displayManager"
-import { ToDoObj,ToDoCard,ToDoProject } from "./index"
+import { ToDoObj,ToDoCard,ToDoProject, attachIcons } from "./index"
 
 class ProjectManager{
     constructor(){
@@ -19,7 +19,6 @@ class ProjectManager{
     }
 
     static createProject(name = "Project"){
-
         //create project and put in project list
         const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
 
@@ -34,6 +33,10 @@ class ProjectManager{
 
         display.addClass(projectElem, name)
         display.addClass(projectElem,"project","type")
+
+        
+        display.attachIcons(null,projectElem)
+    // console.log('ProjectManager.arrayOfProjects:', ProjectManager.arrayOfProjects)
 
         
         // display.addClass(createdProjectname, "obj-name", );
