@@ -219,7 +219,6 @@ class DisplayPrinter{ //prints configured properties of an object
         obj.subItemArray.forEach(item=>{
                 const {objElem, obj: targetObj}  = this.printObjContents(item) //this = DisplayPrinter
                 const parentElem = targetObj.parent.elemRef ? targetObj.parent.elemRef  : projectsContainer
-                
                 parentElem.appendChild(objElem)
                 this.printSubItemRecurse(item) //recursion here
         })
@@ -277,21 +276,21 @@ import ProjectManager from "./project-manager.js"
 
 
 
-function deleteProject(evt){
-    const liElem = evt.target.parentElement.parentElement
-    //delete from UI
+// function deleteProject(evt){
+//     const liElem = evt.target.parentElement.parentElement
+//     //delete from UI
     
-    liElem.remove()
-    //delete from projects list
-    ProjectManager.deleteProject(liElem)
-}
+//     liElem.remove()
+//     //delete from projects list
+//     ProjectManager.deleteProject(liElem)
+// }
 
-function applyEventListeners(){
-    document.querySelectorAll("nav ul li div img").forEach(elem =>{
-        elem.addEventListener("click",deleteProject)
-    })
-}
-applyEventListeners()
+// function applyEventListeners(){
+//     document.querySelectorAll("nav ul li div img").forEach(elem =>{
+//         elem.addEventListener("click",deleteProject)
+//     })
+// }
+// applyEventListeners()
 
 export default ProjectManager
-export {ToDoObj,ToDoCard,ToDoProject}
+export {ToDoObj,ToDoCard,ToDoProject,DisplayPrinter}

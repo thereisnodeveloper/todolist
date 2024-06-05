@@ -1,13 +1,13 @@
-export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay, dispInitialize,dispAddNewProject,attachIcons}
+export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay, dispInitialize,dispAddNewProject,attachIcons,applyEventListeners,selectProject}
 const docContent=document.querySelector(".doc-content")
 import "./index.js"
-import ProjectManager from "./index.js";
+import ProjectManager, { DisplayPrinter } from "./index.js";
 // import ProjectManager from "./index.js";
 import "./project-manager.js"
 
 import TrashCan from "./img/trash.png"
 
-
+const testElem = document.querySelector("div")
 
 function addToDisplay(target = docContent, content, elemType = "div") {
   const elem = document.createElement(elemType);
@@ -78,6 +78,7 @@ function batchAdd(target, array, elemtype){ //keeps adding elements to a thing u
 
 function dispInitialize(){
     document.querySelector("button.add-project").addEventListener("click", dispAddNewProject)
+    applyEventListeners(document.querySelectorAll("nav ul li"),["click",selectProject],true)
 }
 
 function dispAddNewProject(evt){
@@ -97,6 +98,12 @@ function dispAddNewProject(evt){
     return {projButtonElem}
 }
 
+/**
+ * 
+ * @param {*} imgSrc 
+ * @param {*} target 
+ * @returns the icon that was attached to the target
+ */
 function attachIcons(imgSrc,target){
     if(!imgSrc){imgSrc = TrashCan}
     if(!target){target =  document.querySelectorAll("nav ul li div")}
@@ -107,7 +114,59 @@ function attachIcons(imgSrc,target){
 
     
     const clone = iconTrash.cloneNode(false)
+    applyEventListeners(clone)
+    
     target.appendChild(clone)
+    return clone
+}
+
+/**
+ * 
+ * @param {Event} evt 
+ */
+function deleteProject(evt){
+    const liElem = evt.target.parentElement.parentElement
+    //delete from UI
+    
+    liElem.remove()
+    evt.stopPropagation()
+    //delete from projects list
+    ProjectManager.deleteProject(liElem)
+}
+function applyEventListeners(target, evtListener, isMultiple){
+    if(!isMultiple){isMultiple = false}
+    if(!target){target = document.querySelector("nav ul li div img")}
+    if(!evtListener){evtListener = ["click", deleteProject]}
+
+    if(!isMultiple)
+        {
+            target.addEventListener(...evtListener)
+            return;
+        }
+
+    target.forEach(node=>{
+        node.addEventListener(...evtListener)
+    })
+    
+    return target
+}
+
+/**
+ * 
+ * @param {Event} evt 
+ */
+function selectProject(evt){
+    const targetElem = evt.target
+    document.querySelector(".current-project").textContent = targetElem.firstElementChild.classList
+
+    const findResult = ProjectManager.arrayOfProjects.find(entry =>
+        {
+            return entry.name === targetElem.firstElementChild.classList[0]}
+    )
+    console.log(findResult);
+
+    DisplayPrinter.printSubItemRecurse(findResult)
+    return evt.target.firstElementChild
 
 }
 

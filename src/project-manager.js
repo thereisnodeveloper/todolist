@@ -1,9 +1,13 @@
 import display from "./displayManager"
 import { ToDoObj,ToDoCard,ToDoProject, attachIcons } from "./index"
 
+function test(){
+    console.log("test");
+}
+
+
 class ProjectManager{
     constructor(){
-        
     }
     static {
         this.arrayOfProjects = []
@@ -14,7 +18,15 @@ class ProjectManager{
     static switchCurrentProject(projToSwitchTo){
         //if click on proj, switch to it
         //if create new proj, switch to it
+        
         this.currentProject = projToSwitchTo
+
+
+        // display current project
+        const currentProjectElem = document.querySelector(".current-project")
+        currentProjectElem.textContent= this.currentProject.name
+
+
         return this.currentProject        
     }
 
@@ -36,7 +48,16 @@ class ProjectManager{
 
         
         display.attachIcons(null,projectElem)
-    // console.log('ProjectManager.arrayOfProjects:', ProjectManager.arrayOfProjects)
+        
+
+        //Clicking switches project
+        display.applyEventListeners(elemLI,["click",display.selectProject])
+
+        // console.log('ProjectManager.arrayOfProjects:', ProjectManager.arrayOfProjects)
+
+
+    
+
 
         
         // display.addClass(createdProjectname, "obj-name", );

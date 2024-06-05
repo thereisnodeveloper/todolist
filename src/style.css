@@ -8,6 +8,7 @@
     src: local('SEGA LOGO FONT'), url('./fonts/SEGA.woff') format('woff');
     }
 
+
 body{
     background-color: rgb(98, 95, 95);
     font-family: monospace;
@@ -16,6 +17,14 @@ body{
 
 .content-wrapper{
     display: flex;
+}
+
+.doc-content{
+    padding: 30px;
+}
+
+table{
+    font-size: 8px;
 }
 
 h1{
