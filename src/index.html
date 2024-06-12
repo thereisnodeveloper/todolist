@@ -7,11 +7,27 @@
 </head>
 <body>
     <h1>To-do List</h1>
+    <div class="line"></div>
     <div class="content-wrapper">
+        <table>
+            <thead>
+                <td>Current Project:</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="current-project">none</td>
+                </tr>
+            </tbody>
+        </table>
         <nav>
-            <button class="add-project">Add Project +</button>
+            <!-- <form action=""> -->
+                <input type="text" name="project-name" id="project-name"
+                value="Name">
+                <button class="add-project">Add Project +</button>
+            <!-- </form> -->
+
             <ul>
-                <li>placeholder proj</li>
+                <!-- <li>placeholder proj</li> -->
             </ul>
         </nav>
         <div class="doc-content">
@@ -50,10 +66,42 @@
         
                             <div class="which-project">whichProject</div>
                     </section>
+        <dialog class="card-modal ">
+
+            <form class="properties" action="" method="post">
+                    <section class="main-content">
+                        <label for="name">
+                            <textarea name="card-name" id="name" cols="30"
+                            rows="10" placeholder="NAME:"></textarea>
+                        </label>
+                        <label for="description">
+                            <textarea name="card-description" id="description" cols="30"
+                            rows="10" placeholder="DESCRIPTION:"></textarea>
+                        </label>
+                        <label for="priority">PRIORITY:
+                        
+                            <select name="card-priority" id="priority">
+                                <option value="high">High</option>
+                                <option value="normal">Normal</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </label>
+                        <!-- <div class="priority">Priority</div> -->
+                        
+                        <label for="complete">
+                            <input type="checkbox" name="card-complete"
+                            id="complete"> Is it complete?
+                        </label>
+                        <!-- <div class="is-it-complete">isItComplete</div> -->
+                        <div class="checklist">checkList</div>
+                        <div class="which-project">whichProject</div>
+                    </section>
+                    
                 </form>
         </dialog>
     </div>
+  
     
-
+<p style="font-size: 4px;">images from flaticon.com</p>
 </body>
 </html>

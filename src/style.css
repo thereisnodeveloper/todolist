@@ -1,13 +1,56 @@
 :root{   font-family:-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif; }
 
+
+@font-face {
+    font-family: 'SEGA LOGO FONT';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SEGA LOGO FONT'), url('./fonts/SEGA.woff') format('woff');
+    }
+
+
+body{
+    background-color: rgb(98, 95, 95);
+    font-family: monospace;
+    font-size: 16px;
+}
+
 .content-wrapper{
     display: flex;
 }
 
+.doc-content{
+    padding: 30px;
+}
+
+table{
+    font-size: 8px;
+}
+
+h1{
+    font-family: 'SEGA LOGO FONT';
+    font-weight: 100;
+    font-size: 60px;
+    color: red;
+}
+
+.line{
+    border: 3px solid red;
+    /* border-style: inset; */
+    border-top: 3px;
+    border-width: 5px;
+    margin-bottom: 30px;
+}
 
 li{
     list-style: none;
 }
+li:hover, .card:hover{
+    background-color: red;
+    box-shadow: 2px 2px 
+}
+
+
 nav ul{
     padding: 20px;
     border:white 3px solid;
@@ -15,14 +58,9 @@ nav ul{
 }
 nav ul li{
     border: green 1px solid;
-    padding: 5px;
-    padding: 0 20px 0 2 0px;
+    padding: 5px 5px 5px 2 0px;
     margin-bottom: 5px;
 }
-/* 
-form section{
-    display:grid
-} */
 
 .doc-content{
     border: 3px blue solid;
@@ -36,7 +74,7 @@ form section{
 .card{
     /* background-color: #63ff85; */
     background-color:hsl(156, 100%, 52%) ;
-    padding: 10px;
+    padding: 30px;
     border: 2px blue solid;
     position:relative;
     text-wrap: nowrap;
@@ -105,5 +143,10 @@ dialog .properties .checklist{
     grid-row: 4/5
 }
 
+.card{
+    /* display:none;
+    overflow:hidden;
+    width:clamp(100px, 1fr, 80vw) */
+}
 
 

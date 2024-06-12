@@ -1,9 +1,13 @@
-export default {createAndAddToDisplay, addClass, batchAdd}
-// import "./project_manager.js"
-import {ToDoProject} from "./index.js"
-
-
+export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay, dispInitialize,dispAddNewProject,attachIcons,applyEventListeners,selectProject}
 const docContent=document.querySelector(".doc-content")
+import "./index.js"
+import ProjectManager, { DisplayPrinter } from "./index.js";
+// import ProjectManager from "./index.js";
+import "./project-manager.js"
+
+import TrashCan from "./img/trash.png"
+
+const testElem = document.querySelector("div")
 
 function createAndAddToDisplay(target = docContent, content, elemType = "div") {
   const elem = document.createElement(elemType);
@@ -12,29 +16,53 @@ function createAndAddToDisplay(target = docContent, content, elemType = "div") {
   return elem;
 }
 
-function addClass(target, content){
-    target.classList.add(content)
+/**
+ * add class by default, if not add attribute
+ * @param {Element} target 
+ * @param {*} content 
+ * @param {String} attribute 
+ * @returns 
+ */
+function addAttribute(target, content, attribute =null){
+    if(attribute){
+        target.setAttribute(attribute, content)
+    }
+    else{
+    target.classList.add(content)}
     return target
 }
 
-function addEventListener(target, eventListener){
-    
+
+// event listeners
+
+
+// document.querySelector(selectors)
+
+function createAndAddToDisplay(target = docContent, content = "", elemType = "div") {
+    const elem = document.createElement(elemType);
+    elem.textContent = content;
+    target.appendChild(elem);
+    return elem;
 }
 
 
-//TODO: when obj, create and embed these buttons:
+/**
+ * 
+ * @param {Element} cardElem 
+ */
+function addButtons(cardElem){
+    const target = cardElem;
+    const elemSectionWrapper = document.createElement("section")
+    elemSectionWrapper.classList.add("button-section")
+    
 
-//expand/collapse
+    const elemToEmbed = doucment.createElement('button')
+    elemToEmbed.classList.add('')
 
-//break down (new sublist)
+    //embed all the button elements
+    elemSectionWrapper.appendChild()
+}
 
-//clear card
-
-//delete card
-
-//create new card(as sibling)
-
-//moveto / change parent
 
 
 function batchAdd(target, array, elemtype){ //keeps adding elements to a thing until there aren't more to add
@@ -48,48 +76,96 @@ function batchAdd(target, array, elemtype){ //keeps adding elements to a thing u
 // batchAdd(document.querySelector("nav ul"), element, array,"li")
 
 
-function updateContainer(project){
-    const container = document.querySelector(".doc-content")
-    container.innerHTML = ''
+function dispInitialize(){
+    document.querySelector("button.add-project").addEventListener("click", dispAddNewProject)
+    applyEventListeners(document.querySelectorAll("nav ul li"),["click",selectProject],true)
+}
+
+function dispAddNewProject(evt){
+    // evt.target.preventDefault()
+
+    const projButtonElem = document.querySelector("#project-name")
+    //call add new project from Project Manager
+    console.log(projButtonElem.value);
+
     
+    ProjectManager.createProject(projButtonElem.value)
+    // console.log(ProjectManager.arrayOfProjects);
+
+
+    //change UI
+    
+    return {projButtonElem}
 }
 
+/**
+ * 
+ * @param {*} imgSrc 
+ * @param {*} target 
+ * @returns the icon that was attached to the target
+ */
+function attachIcons(imgSrc,target){
+    if(!imgSrc){imgSrc = TrashCan}
+    if(!target){target =  document.querySelectorAll("nav ul li div")}
+    const iconTrash = new Image(100,20)
+    iconTrash.src = TrashCan
+    iconTrash.style.width = "1.2em"
+    iconTrash.style.height = "1.2em"
 
-class ModalManager{
-    static modal = document.querySelector(".card-modal")
-    static showModal(){
-        this.modal.show()
-        // document.querySelector(".card-modal").show()
-    };
-
-    static closeModal(){
-        this.modal.close()
-    }
-
-    static clearModal(){
-    }
-
-    static preventDefaultModal(){
-        const form = document.querySelector(".card-modal")
-        form.addEventListener("submit", (evt)=>{
-            evt.preventDefault()
-        })
-    }
+    
+    const clone = iconTrash.cloneNode(false)
+    applyEventListeners(clone)
+    
+    target.appendChild(clone)
+    return clone
 }
-// ModalManager.showModal() //FIXME: modal not showing up
-// ModalManager.preventDefaultModal()
 
+/**
+ * 
+ * @param {Event} evt 
+ */
+function deleteProject(evt){
+    const liElem = evt.target.parentElement.parentElement
+    //delete from UI
+    
+    liElem.remove()
+    evt.stopPropagation()
+    //delete from projects list
+    ProjectManager.deleteProject(liElem)
+}
+function applyEventListeners(target, evtListener, isMultiple){
+    if(!isMultiple){isMultiple = false}
+    if(!target){target = document.querySelector("nav ul li div img")}
+    if(!evtListener){evtListener = ["click", deleteProject]}
 
-// function attachEventListenerTarget(target){
-//     target.addEventListener("click", ProjectManager.switchCurrentProject(project))
-// }
+    if(!isMultiple)
+        {
+            target.addEventListener(...evtListener)
+            return;
+        }
 
+    target.forEach(node=>{
+        node.addEventListener(...evtListener)
+    })
+    
+    return target
+}
+/**
+ * 
+ * @param {Event} evt 
+ */
+function selectProject(evt){
+    const targetElem = evt.target
+    document.querySelector(".current-project").textContent = targetElem.firstElementChild.classList
+console.log(ProjectManager.arrayOfProjects);
+    const findResult = ProjectManager.arrayOfProjects.find(entry =>
+        {
+            return entry.name === targetElem.firstElementChild.classList[0]}
+    )
+    console.log(findResult);
 
-// (function attachEventListenerBulk(){
-//     document.querySelector(".close-modal").addEventListener("click",ModalManager.closeModal)
-//     document.querySelector(".add-project").addEventListener("click", ProjectManager.createProject)
-// })();
+    DisplayPrinter.printSubItemRecurse(findResult)
+    return evt.target.firstElementChild
 
-
-
+}
 
