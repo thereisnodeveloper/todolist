@@ -47,7 +47,6 @@ class ToDoProject extends ToDoObj {
   }
 }
 
-const proj1 = new ToDoProject("proj1");
 // console.log(proj1);
 
 class ToDoCard extends ToDoProject {
@@ -263,11 +262,19 @@ class DisplayPrinter {
   ProjectManager.createProject("proj2");
   ProjectManager.createProject("proj3");
 
-  proj1.makeSubItem("card1D01").makeSubItem("card1D02");
-  proj1.makeSubItem("test");
-  console.log(proj1);
+  ProjectManager.arrayOfProjects
+  ProjectManager.arrayOfProjects[0].makeSubItem("card1D01").makeSubItem("card1D02")
+  ProjectManager.arrayOfProjects[0].makeSubItem("test_proj1")
 
-  DisplayPrinter.printSubItemRecurse(proj1);
+  ProjectManager.arrayOfProjects[1].makeSubItem("card2D01").makeSubItem("card2D02")
+
+  console.log(ProjectManager.arrayOfProjects[0]);
+
+  // proj1.makeSubItem("card1D01").makeSubItem("card1D02");
+  // proj1.makeSubItem("test");
+  // console.log(proj1);
+
+  DisplayPrinter.printSubItemRecurse(ProjectManager.arrayOfProjects[0]);
 })();
 
 const testCard = new ToDoCard("testcard");
