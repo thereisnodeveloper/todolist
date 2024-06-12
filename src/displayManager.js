@@ -150,7 +150,6 @@ function applyEventListeners(target, evtListener, isMultiple){
     
     return target
 }
-
 /**
  * 
  * @param {Event} evt 
@@ -158,7 +157,7 @@ function applyEventListeners(target, evtListener, isMultiple){
 function selectProject(evt){
     const targetElem = evt.target
     document.querySelector(".current-project").textContent = targetElem.firstElementChild.classList
-
+console.log(ProjectManager.arrayOfProjects);
     const findResult = ProjectManager.arrayOfProjects.find(entry =>
         {
             return entry.name === targetElem.firstElementChild.classList[0]}
