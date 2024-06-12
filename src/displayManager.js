@@ -1,4 +1,4 @@
-export default {addToDisplay, addClass: addAttribute, batchAdd, createAndAddToDisplay, dispInitialize,dispAddNewProject,attachIcons,applyEventListeners,selectProject}
+export default {addClass: addAttribute, batchAdd, createAndAddToDisplay, dispInitialize,dispAddNewProject,attachIcons,applyEventListeners,selectProject}
 const docContent=document.querySelector(".doc-content")
 import "./index.js"
 import ProjectManager, { DisplayPrinter } from "./index.js";
@@ -37,13 +37,6 @@ function addAttribute(target, content, attribute =null){
 
 
 // document.querySelector(selectors)
-
-function createAndAddToDisplay(target = docContent, content = "", elemType = "div") {
-    const elem = document.createElement(elemType);
-    elem.textContent = content;
-    target.appendChild(elem);
-    return elem;
-}
 
 
 /**
@@ -157,14 +150,13 @@ function applyEventListeners(target, evtListener, isMultiple){
 function selectProject(evt){
     const targetElem = evt.target
     document.querySelector(".current-project").textContent = targetElem.firstElementChild.classList
-console.log(ProjectManager.arrayOfProjects);
     const findResult = ProjectManager.arrayOfProjects.find(entry =>
         {
+            console.log(targetElem.firstElementChild.classList[0]);
             return entry.name === targetElem.firstElementChild.classList[0]}
     )
-    console.log(findResult);
 
-    DisplayPrinter.printSubItemRecurse(findResult)
+    // DisplayPrinter.printSubItemRecurse(findResult)
     return evt.target.firstElementChild
 
 }
