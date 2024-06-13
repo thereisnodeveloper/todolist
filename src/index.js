@@ -7,6 +7,7 @@ import "./style.css";
 const projectsContainer = document.querySelector(".doc-content");
 const testElem = document.querySelector(".doc-content");
 
+
 class ToDoObj {
   // constructor(){
   //     // this.name = name
@@ -23,6 +24,12 @@ class ToDoProject extends ToDoObj {
     this.numOfProjects = 0; //this here refers to the class, not instance
   }
 
+  generateID(){
+    const id = Math.floor(Math.random()*10000)
+    return id
+  }
+
+
   constructor(name) {
     super();
     ToDoProject.numOfProjects++;
@@ -30,6 +37,7 @@ class ToDoProject extends ToDoObj {
     this.elemRef;
     this.name = name || "default";
     this.cardDepthLevel = 0;
+    this.id = this.generateID()
   }
   makeSubItem(name) {
     const subItem = new ToDoCard(name);

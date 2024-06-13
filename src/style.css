@@ -44,6 +44,9 @@ h1{
 
 li{
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px;
 }
 li:hover, .card:hover{
     background-color: red;
@@ -149,4 +152,7 @@ dialog .properties .checklist{
     width:clamp(100px, 1fr, 80vw) */
 }
 
-
+/* 
+div[type="project"]::before{
+    content: url(http://localhost:8080/fa7887ac547cd590dcbf.png);
+} */

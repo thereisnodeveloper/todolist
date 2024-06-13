@@ -5,7 +5,6 @@ function test(){
     console.log("test");
 }
 
-
 class ProjectManager{
     constructor(){
     }
@@ -32,23 +31,24 @@ class ProjectManager{
 
     static createProject(name = "Project"){
         //create project and put in project list
-        const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),name, "li")
+        const elemLI = display.createAndAddToDisplay(document.querySelector("nav ul"),"", "li")
 
         this[name] = new ToDoProject(name)
         const createdProject = this[name]
+
+
         this.arrayOfProjects.push(createdProject)
         this.switchCurrentProject(createdProject)
 
         //get project element and put it in the project object
-        const projectElem = display.createAndAddToDisplay(elemLI,"","div")
+        const projectElem = display.createAndAddToDisplay(elemLI,name,"div")
         createdProject.projElemRef = projectElem
 
         display.addClass(projectElem, name)
         display.addClass(projectElem,"project","type")
-
+        display.addClass(projectElem, createdProject.id,"id")
         
-        display.attachIcons(null,projectElem)
-        
+        display.attachIcons(null,elemLI)
 
         //Clicking switches project
         display.applyEventListeners(elemLI,["click",display.selectProject])

@@ -148,16 +148,23 @@ function applyEventListeners(target, evtListener, isMultiple){
  * @param {Event} evt 
  */
 function selectProject(evt){
-    const targetElem = evt.target
-    document.querySelector(".current-project").textContent = targetElem.firstElementChild.classList
+    const targetElem = evt.target.querySelector("[type='project']")
+    document.querySelector(".current-project").textContent = targetElem.classList
+
+    
     const findResult = ProjectManager.arrayOfProjects.find(entry =>
         {
-            console.log(targetElem.firstElementChild.classList[0]);
-            return entry.name === targetElem.firstElementChild.classList[0]}
+            console.log(entry.id);
+            console.log(targetElem.id);
+            return entry.id === targetElem.id}
     )
 
     // DisplayPrinter.printSubItemRecurse(findResult)
-    return evt.target.firstElementChild
+
+    console.log(findResult);
+    document.querySelector(".doc-content").innerHTML = ""
+    // DisplayPrinter.printSubItemRecurse(findResult)
+    return findResult
 
 }
 
