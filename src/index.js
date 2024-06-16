@@ -228,38 +228,44 @@ class DisplayPrinter {
     }
   }
 
-  static printSubItemRecurse(obj) {
-    if (!obj.subItemArray) {
+  static printSubItemRecurse(argArray1) {
+  //  const argArray = argArray
+   function recurse(argArray){
+    const [itemObj, target ] = argArray
+    if (!itemObj.subItemArray) {
       console.log("no subArray");
       return;
     }
+    // console.log(itemObj.subItemArray);
 
-    obj.subItemArray.forEach((item) => {
-      const { objElem, obj: targetObj } = this.printObjContents(item); //this = DisplayPrinter
-      const parentElem = targetObj.parent.elemRef
-        ? targetObj.parent.elemRef
-        : projectsContainer;
+    var parentElem
+    itemObj.subItemArray.forEach((item) => {
+      const {obj, objElem} = this.printObjContents(item); //this = DisplayPrinter
+      
+      if(obj.parent.elemRef){
+        parentElem = obj.parent.elemRef
+      } else if(target){
+        parentElem = target
+      } else parentElem = projectsContainer;
       // parentElem.innerHTML = ""
-      parentElem.appendChild(objElem);
-      this.printSubItemRecurse(item); //recursion here
+      parentElem.appendChild(objElem); //FIXME:
+      // this.printSubItemRecurse([item]); //recursion here
+      recurse([item])
     });
 
-    function addDepthSeparator(depth, target) {
-      let content = "_";
-      // content.concat("_".repeat(depth))
-      content = content.repeat(depth * 2);
-      // for(let i=0; i < depth + 1 ;i++){
-      //     content.concat("-")
-      // }
-      display.createAndAddToDisplay(target, content);
-    }
-
     (function alternateColorByDepth() {
-      if (!obj.cardDepthLevel) return;
-      if (obj.cardDepthLevel % 2 === 0) {
-        obj.elemRef.style.backgroundColor = "red";
+      if (!argArray[0].cardDepthLevel) return;
+      if (argArray[0].cardDepthLevel % 2 === 0) {
+        argArray[0].elemRef.style.backgroundColor = "red";
       }
     })();
+
+// console.log(parentElem)
+    return parentElem
+  }
+
+  recurse(argArray1)
+
   }
 }
 
@@ -281,8 +287,8 @@ class DisplayPrinter {
   // proj1.makeSubItem("card1D01").makeSubItem("card1D02");
   // proj1.makeSubItem("test");
   // console.log(proj1);
-
-  DisplayPrinter.printSubItemRecurse(ProjectManager.arrayOfProjects[0]);
+const embedTarget = document.body.querySelector(".doc-content");
+  DisplayPrinter.printSubItemRecurse([ProjectManager.arrayOfProjects[0], embedTarget]);
 })();
 
 const testCard = new ToDoCard("testcard");

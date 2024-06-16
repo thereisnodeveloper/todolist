@@ -154,16 +154,15 @@ function selectProject(evt){
     
     const findResult = ProjectManager.arrayOfProjects.find(entry =>
         {
-            console.log(entry.id);
-            console.log(targetElem.id);
-            return entry.id === targetElem.id}
+            return entry.id == targetElem.id}
     )
 
-    // DisplayPrinter.printSubItemRecurse(findResult)
+        console.log(findResult);
 
-    console.log(findResult);
-    document.querySelector(".doc-content").innerHTML = ""
-    // DisplayPrinter.printSubItemRecurse(findResult)
+    const contentWindow = document.querySelector(".doc-content")
+    contentWindow.innerHTML = ""
+    
+    DisplayPrinter.printSubItemRecurse([findResult])
     return findResult
 
 }
