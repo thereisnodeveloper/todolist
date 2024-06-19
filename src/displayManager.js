@@ -161,7 +161,6 @@ function selectProject(evt){
 
     const contentWindow = document.querySelector(".doc-content")
     contentWindow.innerHTML = ""
-    
     DisplayPrinter.printSubItemRecurse([findResult])
     return findResult
 

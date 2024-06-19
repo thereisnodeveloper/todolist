@@ -199,7 +199,8 @@ class DisplayPrinter {
 
     const objElem = obj.elemRef;
     const entries = Object.entries(obj);
-
+// testElem.has
+    if(objElem.hasChildNodes()) return {obj, objElem}
     entries.forEach((entry) => {
       if (this.printAll === true) {
         if (!this.checkIfShouldPrint(entry, toPrint)) {
@@ -211,6 +212,7 @@ class DisplayPrinter {
       //TODO: organize this code separately
 
       const elem = display.createAndAddToDisplay(objElem, content);
+      // [content] = null
       display.addClass(elem, entry[0]);
       // display.addToDisplay(objElem)
       // display.addToDisplay("  ")
@@ -228,10 +230,11 @@ class DisplayPrinter {
     }
   }
 
-  static printSubItemRecurse(argArray1) {
-  //  const argArray = argArray
-   function recurse(argArray){
-    const [itemObj, target ] = argArray
+  static printSubItemRecurse(argArray) {
+   const argArray1 = argArray
+   function recurse(argArray1){
+    const [itemObj, target ] = argArray1
+
     if (!itemObj.subItemArray) {
       console.log("no subArray");
       return;
@@ -240,23 +243,31 @@ class DisplayPrinter {
 
     var parentElem
     itemObj.subItemArray.forEach((item) => {
-      const {obj, objElem} = this.printObjContents(item); //this = DisplayPrinter
-      
+      const {obj, objElem} = DisplayPrinter.printObjContents(item); //this = DisplayPrinter
       if(obj.parent.elemRef){
         parentElem = obj.parent.elemRef
       } else if(target){
         parentElem = target
       } else parentElem = projectsContainer;
-      // parentElem.innerHTML = ""
-      parentElem.appendChild(objElem); //FIXME:
+      console.log('parentElem.childNodes:', parentElem.childNodes)
+      
+      // let hasDuplicate = false
+      //   parentElem.childNodes.forEach(node=>{
+      //     if(node === objElem) hasDuplicate = true
+      //   })
+      // if(!hasDuplicate) 
+        
+        parentElem.appendChild(objElem); //FIXME:
       // this.printSubItemRecurse([item]); //recursion here
       recurse([item])
+      console.log(parentElem);
+
     });
 
     (function alternateColorByDepth() {
-      if (!argArray[0].cardDepthLevel) return;
-      if (argArray[0].cardDepthLevel % 2 === 0) {
-        argArray[0].elemRef.style.backgroundColor = "red";
+      if (!argArray1[0].cardDepthLevel) return;
+      if (argArray1[0].cardDepthLevel % 2 === 0) {
+        argArray1[0].elemRef.style.backgroundColor = "purple";
       }
     })();
 
